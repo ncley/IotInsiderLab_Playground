@@ -4,8 +4,8 @@ import { UniversalModule } from 'angular2-universal';
 import { AppComponent } from './components/app/app.component'
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
-import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
-import { CounterComponent } from './components/counter/counter.component';
+import { CampaignManagerComponent } from './components/manage/campaignmanager.component';
+import { DeviceManagerComponent } from './components/manage/devicemanager.component';
 
 
 @NgModule({
@@ -13,8 +13,8 @@ import { CounterComponent } from './components/counter/counter.component';
     declarations: [
         AppComponent,
         NavMenuComponent,
-        CounterComponent,
-        FetchDataComponent,
+        CampaignManagerComponent,
+        DeviceManagerComponent,
         HomeComponent
     ],
     imports: [
@@ -22,8 +22,8 @@ import { CounterComponent } from './components/counter/counter.component';
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
+            { path: 'manage-campaign', component: CampaignManagerComponent },
+            { path: 'manage-device', component: DeviceManagerComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]

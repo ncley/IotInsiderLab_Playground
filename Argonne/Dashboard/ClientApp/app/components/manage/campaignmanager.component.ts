@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'campaign-manager',
+    selector: 'campaignmanager',
     template: require('./campaignmanager.component.html')
 })
 export class CampaignManagerComponent {
