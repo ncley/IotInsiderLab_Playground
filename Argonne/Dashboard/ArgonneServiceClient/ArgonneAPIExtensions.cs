@@ -711,7 +711,7 @@ namespace ArgonneDashboard.ArgonneServiceClient
             /// <param name='campaignid'>
             /// unique identifier for a campaign
             /// </param>
-            public static IList<Devices> ApiAdminCampaignByCampaignidDevicesGet(this IArgonneAPI operations, string campaignid)
+            public static IList<DeviceDto> ApiAdminCampaignByCampaignidDevicesGet(this IArgonneAPI operations, string campaignid)
             {
                 return Task.Factory.StartNew(s => ((IArgonneAPI)s).ApiAdminCampaignByCampaignidDevicesGetAsync(campaignid), operations, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
             }
@@ -729,7 +729,7 @@ namespace ArgonneDashboard.ArgonneServiceClient
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<Devices>> ApiAdminCampaignByCampaignidDevicesGetAsync(this IArgonneAPI operations, string campaignid, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<DeviceDto>> ApiAdminCampaignByCampaignidDevicesGetAsync(this IArgonneAPI operations, string campaignid, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.ApiAdminCampaignByCampaignidDevicesGetWithHttpMessagesAsync(campaignid, null, cancellationToken).ConfigureAwait(false))
                 {

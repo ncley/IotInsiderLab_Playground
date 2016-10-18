@@ -345,7 +345,7 @@ namespace ArgonneDashboard.ArgonneServiceClient
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<IList<Devices>>> ApiAdminCampaignByCampaignidDevicesGetWithHttpMessagesAsync(string campaignid, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<IList<DeviceDto>>> ApiAdminCampaignByCampaignidDevicesGetWithHttpMessagesAsync(string campaignid, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Add a Device to a Campaign

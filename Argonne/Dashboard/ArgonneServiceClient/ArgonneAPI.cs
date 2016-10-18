@@ -2298,7 +2298,7 @@ namespace ArgonneDashboard.ArgonneServiceClient
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<Devices>>> ApiAdminCampaignByCampaignidDevicesGetWithHttpMessagesAsync(string campaignid, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<DeviceDto>>> ApiAdminCampaignByCampaignidDevicesGetWithHttpMessagesAsync(string campaignid, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (campaignid == null)
             {
@@ -2371,7 +2371,7 @@ namespace ArgonneDashboard.ArgonneServiceClient
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<IList<Devices>>();
+            var _result = new HttpOperationResponse<IList<DeviceDto>>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -2380,7 +2380,7 @@ namespace ArgonneDashboard.ArgonneServiceClient
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = SafeJsonConvert.DeserializeObject<IList<Devices>>(_responseContent, this.DeserializationSettings);
+                    _result.Body = SafeJsonConvert.DeserializeObject<IList<DeviceDto>>(_responseContent, this.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {

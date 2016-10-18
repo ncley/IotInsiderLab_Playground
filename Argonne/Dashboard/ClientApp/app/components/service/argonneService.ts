@@ -7,7 +7,10 @@ import Dto5 = require("../model/FaceForImpressionDto");
 import Dto6 = require("../model/DeviceDto");
 import { Http, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import 'rxjs/Rx';
 
+@Injectable()
 export class ArgonneService {
     // replace with valid service URL
     private BASE_URI: string = 'http://api-argonne.azurewebsites.net';
@@ -21,6 +24,15 @@ export class ArgonneService {
         params.set('after', showAfter);
         params.set('PageSize', '1000');
         return this.$http.get(url, { search: params }).map(response => <Dto.ImpressionDto[]>response.json());
+    }
+
+    public getCampaignAggregate(campaignId: string, start: string = null, end: string = null): Observable<Dto4.AdAggregateData[]> {
+        //var url = '/api/campaign/aggregate/' + campaignId;
+        var url = this.BASE_URI + '/api/admin/Campaign/' + campaignId + '/impressions/aggregate';
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('start', start);
+        params.set('end', end);
+        return this.$http.get(url, { search: params }).map(response => <Dto4.AdAggregateData[]>response.json());
     }
 
 //    public getAllCampaigns(): Observable<Dto1.CampaignDto[]> {
@@ -61,21 +73,6 @@ export class ArgonneService {
 ////            });
 //    }
 //
-//    public getCampaignAggregate(campaignId: string, start: string = null, end: string = null): ng.IPromise<Dto4.AdAggregateData[]> {
-//        //var url = '/api/campaign/aggregate/' + campaignId;
-//        var url = this.BASE_URI + '/api/admin/Campaign/' + campaignId + '/impressions/aggregate';
-//
-////        return this.$http.get(url,
-////            {
-////                params: {
-////                    start: start,
-////                    end: end
-////                }
-////            })
-////            .then(response => {
-////                return response.data as Dto4.AdAggregateData[];
-////            });
-//    }
 //
 //    public getAllAds(): ng.IPromise<Dto3.AdDto[]> {
 //        var url = this.BASE_URI + '/api/admin/Ad';

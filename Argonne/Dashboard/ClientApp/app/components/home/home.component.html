@@ -1,34 +1,124 @@
-<!--start container-->
-<div class="container">
-    <!--card stats start-->
-    <div id="card-stats">
-        <div class="row">
-            <div class="col s12 m6 l3">
-                <div class="card">
-                    <div class="card-content pink lighten-1 white-text">
-                        <p class="card-stats-title"><i class="material-icons">face</i> Unique Faces</p>
-                        <h4 class="card-stats-number">{{ currentCampaignId }}</h4>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div>
+    foo
 </div>
 
-            <!--<h1>Hello, Walrus!</h1>-->
-            <!--<p>Welcome to your new single-page application, built with:</p>-->
-            <!--<ul>-->
-            <!--    <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>-->
-            <!--    <li><a href='https://angular.io/'>Angular 2</a> and <a href='http://www.typescriptlang.org/'>TypeScript</a> for client-side code</li>-->
-            <!--    <li><a href='https://webpack.github.io/'>Webpack</a> for building and bundling client-side resources</li>-->
-            <!--    <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>-->
-            <!--</ul>-->
-            <!--<p>To help you get started, we've also set up:</p>-->
-            <!--<ul>-->
-            <!--    <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>-->
-            <!--    <li><strong>Server-side prerendering</strong>. For faster initial loading and improved SEO, your Angular 2 app is prerendered on the server. The resulting HTML is then transferred to the browser where a client-side copy of the app takes over.</li>-->
-            <!--    <li><strong>Webpack dev middleware</strong>. In development mode, there's no need to run the <code>webpack</code> build tool. Your client-side resources are dynamically built on demand. Updates are available as soon as you modify any file.</li>-->
-            <!--    <li><strong>Hot module replacement</strong>. In development mode, you don't even need to reload the page after making most changes. Within seconds of saving changes to files, your Angular 2 app will be rebuilt and a new instance injected is into the page.</li>-->
-            <!--    <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and the <code>webpack</code> build tool produces minified static CSS and JavaScript files.</li>-->
-            <!--</ul>-->
+<!--$1$start container#1#-->
+<!--<div class="container">-->
+<!--    $1$card stats start#1#-->
+<!--    <div id="card-stats">-->
+<!--        <div class="row">-->
+<!--            <div class="col s12 m6 l3">-->
+<!--                <div class="card">-->
+<!--                    <div class="card-content pink lighten-1 white-text">-->
+<!--                        <p class="card-stats-title"><i class="material-icons">face</i> Unique Faces</p>-->
+<!--                        <h4 class="card-stats-number">{{campaignAgData?.uniqueFaces|| 0}}</h4>-->
+<!--                        <p class="card-stats-compare">-->
+<!--                            <span class="deep-purple-text text-lighten-5">{{campaignAgData?.totalFaces || 0}} total faces</span>-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col s12 m6 l3">-->
+<!--                <div class="card">-->
+<!--                    <div class="card-content green white-text">-->
+<!--                        <p class="card-stats-title"><i class="material-icons">linear_scale</i> Average Age</p>-->
+<!--                        <h4 class="card-stats-number">0</h4>-->
+<!--                        <p class="card-stats-compare">-->
+<!--                            <span class="green-text text-lighten-5">Youngest age is 0 and oldest is 99</span>-->
+<!--                        </p>-->
+<!---->
+<!--$1$                        <h4 class="card-stats-number">{{(vm.aggregatedData.avgAge | number:0) || 0}}</h4>#1#-->
+<!--$1$                        <p class="card-stats-compare">#1#-->
+<!--$1$                            <span class="green-text text-lighten-5">Youngest age is {{vm.aggregatedData.smallestAge}} and oldest is {{vm.aggregatedData.largestAge}}</span>#1#-->
+<!--$1$                        </p>#1#-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col s12 m6 l3">-->
+<!--                <div class="card">-->
+<!--                    <div class="card-content blue-grey white-text">-->
+<!--                        <p class="card-stats-title"><i class="material-icons">mood</i> Sentiment</p>-->
+<!--                        <h4 class="card-stats-number">fear</h4>-->
+<!--                        <p class="card-stats-compare">-->
+<!--                            <span class="blue-grey-text text-lighten-5">foo</span>-->
+<!--                        </p>-->
+<!--$1$                        <h4 class="card-stats-number">{{vm.aggregatedData.sentiment.name || 'Uknown'}}</h4>#1#-->
+<!--$1$                        <p class="card-stats-compare">#1#-->
+<!--$1$                            <span class="blue-grey-text text-lighten-5">{{vm.currentAfterDate.local().fromNow()}}</span>#1#-->
+<!--$1$                        </p>#1#-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col s12 m6 l3">-->
+<!--                <div class="card">-->
+<!--                    <div class="card-content purple white-text">-->
+<!--                        <p class="card-stats-title"><i class="material-icons">wc</i> Gender</p>-->
+<!--                        <h2 class="card-stats-number">-->
+<!--                            <i class="fa fa-male fa-2x"></i> {{campaignAgData?.males || 0}} / <i class="fa fa-female fa-2x"></i> {{campaignAgData?.females || 0}}-->
+<!--                        </h2>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    $1$card stats end#1#-->
+<!---->
+<!--    <div id="ad-stats-container" class="row">-->
+<!--        <div class="col s12 m6">-->
+<!--            <div class="card">-->
+<!--                <div class="card-move-up waves-effect waves-block waves-light">-->
+<!--                    <div class="move-up cyan darken-1">-->
+<!--                        <div>-->
+<!--                            <span class="chart-title white-text">Demographics</span>-->
+<!--                        </div>-->
+<!--                        <div id="chart-ad-gender-wrapper">-->
+<!--                            <canvas id="chart-ad-gender" class="chart-base" chart-type="vm.chartAdGenderType" height="80"-->
+<!--                                    chart-data="vm.chartAdGenderData" chart-labels="vm.chartAdGenderLabels"-->
+<!--                                    chart-options="vm.chartAdGenderOptions" chart-series="vm.chartAdGenderSeries"-->
+<!--                                    chart-dataset-override="vm.chartAdGenderDatasetOverride"></canvas>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col s12 m6">-->
+<!--            <div class="card">-->
+<!--                <div class="card-move-up teal waves-effect waves-block waves-light">-->
+<!--                    <div class="move-up">-->
+<!--                        <p class="margin white-text">Live Impression Sentiments</p>-->
+<!--                        <canvas id="chart-impression-sentiments" height="85"-->
+<!--                                class="chart-base" chart-type="vm.chartImpressionSentimentType"-->
+<!--                                chart-data="vm.chartImpressionSentimentData" chart-labels="vm.chartImpressionSentimentLabels"-->
+<!--                                chart-options="vm.chartImpressionSentimentOption" chart-series="vm.chartImpressionSentimentSeries"-->
+<!--                                chart-dataset-override="vm.chartImpressionSentitmentDatasetOverride"></canvas>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!---->
+<!--$1$    <div class="row">#1#-->
+<!--$1$        <div class="col s12 m6">#1#-->
+<!--$1$            <ul id="campaign-collection" class="collection scrollable">#1#-->
+<!--$1$                <li class="collection-item avatar">#1#-->
+<!--$1$                    <i class="mdi-file-folder circle light-blue darken-2"></i>#1#-->
+<!--$1$                    <span class="collection-header">Campaign's Ad</span>#1#-->
+<!--$1$                    <a href="#" class="secondary-content"><i class="mdi-action-grade"></i></a>#1#-->
+<!--$1$                </li>#1#-->
+<!--$1$                <li class="collection-item" ng-repeat="a in vm.currentCampaign.ads">#1#-->
+<!--$1$                    <div class="row">#1#-->
+<!--$1$                        <div class="col s6">#1#-->
+<!--$1$                            <div class="collections-title">{{a.adName}}</div>#1#-->
+<!--$1$                            <div class="collections-content subtitle">{{a.url}}</div>#1#-->
+<!--$1$                            <span class="task-cat blue"><i class="fa fa-male"></i> {{a.males || 0}}</span>#1#-->
+<!--$1$                            <span class="task-cat pink"><i class="fa fa-female"></i> {{a.females || 0}}</span>#1#-->
+<!--$1$                        </div>#1#-->
+<!--$1$                        <div class="col s3">#1#-->
+<!--$1$                            <span class="task-cat blue accent-2">Total faces: {{a.totalFaces || 0}}</span>#1#-->
+<!--$1$                        </div>#1#-->
+<!--$1$                    </div>#1#-->
+<!--$1$                </li>#1#-->
+<!--$1$            </ul>#1#-->
+<!--$1$        </div>#1#-->
+<!--$1$    </div>#1#-->
+<!--</div>-->
