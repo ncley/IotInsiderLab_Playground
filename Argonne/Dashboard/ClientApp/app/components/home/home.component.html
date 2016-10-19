@@ -1,85 +1,112 @@
     <!--start container-->
-    <div id="home-content" class="container-fluid">
-        <div id="campaign-stats-container" class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-comments fa-5x"></i>
+<div class="container-fluid">
+    <div id="campaign-stats-container" class="row">
+        <div class="col-lg-2 col-md-4">
+            <div class="panel panel-primary">
+                <!--                <div class="panel-heading"></div>-->
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-users fa-4x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    {{campaignAgData?.uniqueFaces|| 0}} unique
+                                </div>
                             </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge">26</div>
-                                <div>New Comments!</div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    {{campaignAgData?.totalFaces|| 0}} total
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <a href="#">
-                        <div class="panel-footer">
-                            <span class="pull-left">View Details</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
+                </div>
+                <div class="panel-footer">
+                    <span class="pull-left">Ad Viewers Recognized</span>
+                    <div class="clearfix"></div>
                 </div>
             </div>
-
-             <div class="col-lg-3 col-md-6 col-sm-12">
-                 <div class="card">
-                     <div class="card-image">
-                         <i class="material-icons">face</i> Unique Faces
-                     </div>
-                     <div class="card-body">
-                         <h4>{{campaignAgData?.uniqueFaces|| 0}}</h4>
-                     </div>
-                    <div class="card-footer">
-                        <span class="deep-purple-text text-lighten-5">{{campaignAgData?.totalFaces || 0}} total faces</span>
-                    </div>
-                     </div>
-                 </div>
-
-            <!-- <div class="col-lg-3 col-md-6 col-sm-12">-->
-            <!-- <div class="card">-->
-            <!-- <div class="card-content green white-text">-->
-            <!-- <p class="card-stats-title"><i class="material-icons">linear_scale</i> Average Age</p>-->
-            <!-- <h4 class="card-stats-number">0</h4>-->
-            <!-- <p class="card-stats-compare">-->
-            <!-- <span class="green-text text-lighten-5">Youngest age is 0 and oldest is 99</span>-->
-            <!-- </p>-->
-            <!---->
-            <!-- $1$ <h4 class="card-stats-number">{{(vm.aggregatedData.avgAge | number:0) || 0}}</h4>#1#-->
-            <!-- $1$ <p class="card-stats-compare">#1#-->
-            <!-- $1$ <span class="green-text text-lighten-5">Youngest age is {{vm.aggregatedData.smallestAge}} and oldest is {{vm.aggregatedData.largestAge}}</span>#1#-->
-            <!-- $1$ </p>#1#-->
-            <!-- </div>-->
-            <!-- </div>-->
-            <!-- </div>-->
-            <!-- <div class="col-lg-3 col-md-6 col-sm-12">-->
-            <!-- <div class="card">-->
-            <!-- <div class="card-content blue-grey white-text">-->
-            <!-- <p class="card-stats-title"><i class="material-icons">mood</i> Sentiment</p>-->
-            <!-- <h4 class="card-stats-number">fear</h4>-->
-            <!-- <p class="card-stats-compare">-->
-            <!-- <span class="blue-grey-text text-lighten-5">foo</span>-->
-            <!-- </p>-->
-            <!-- $1$ <h4 class="card-stats-number">{{vm.aggregatedData.sentiment.name || 'Uknown'}}</h4>#1#-->
-            <!-- $1$ <p class="card-stats-compare">#1#-->
-            <!-- $1$ <span class="blue-grey-text text-lighten-5">{{vm.currentAfterDate.local().fromNow()}}</span>#1#-->
-            <!-- $1$ </p>#1#-->
-            <!-- </div>-->
-            <!-- </div>-->
-            <!-- </div>-->
-            <!-- <div class="col-lg-3 col-md-6 col-sm-12">-->
-            <!-- <div class="card">-->
-            <!-- <div class="card-content purple white-text">-->
-            <!-- <p class="card-stats-title"><i class="material-icons">wc</i> Gender</p>-->
-            <!-- <h2 class="card-stats-number">-->
-            <!-- <i class="fa fa-male fa-2x"></i> {{campaignAgData?.males || 0}} / <i class="fa fa-female fa-2x"></i> {{campaignAgData?.females || 0}}-->
-            <!-- </h2>-->
-            <!-- </div>-->
-            <!-- </div>-->
-            <!-- </div>-->
         </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-comments fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">26</div>
+                            <div>New Comments!</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!--            <div class="col-lg-3 col-md-6 col-sm-12">-->
+        <!--                <div class="card">-->
+        <!--                    <div class="card-image">-->
+        <!--                        <i class="fa fa-users fa-5x"></i> Unique Faces-->
+        <!--                    </div>-->
+        <!--                    <div class="card-body">-->
+        <!--                        <h4>{{campaignAgData?.uniqueFaces|| 0}}</h4>-->
+        <!--                    </div>-->
+        <!--                    <div class="card-footer">-->
+        <!--                        <span class="deep-purple-text text-lighten-5">{{campaignAgData?.totalFaces || 0}} total faces</span>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!-- <div class="col-lg-3 col-md-6 col-sm-12">-->
+        <!-- <div class="card">-->
+        <!-- <div class="card-content green white-text">-->
+        <!-- <p class="card-stats-title"><i class="material-icons">linear_scale</i> Average Age</p>-->
+        <!-- <h4 class="card-stats-number">0</h4>-->
+        <!-- <p class="card-stats-compare">-->
+        <!-- <span class="green-text text-lighten-5">Youngest age is 0 and oldest is 99</span>-->
+        <!-- </p>-->
+        <!---->
+        <!-- $1$ <h4 class="card-stats-number">{{(vm.aggregatedData.avgAge | number:0) || 0}}</h4>#1#-->
+        <!-- $1$ <p class="card-stats-compare">#1#-->
+        <!-- $1$ <span class="green-text text-lighten-5">Youngest age is {{vm.aggregatedData.smallestAge}} and oldest is {{vm.aggregatedData.largestAge}}</span>#1#-->
+        <!-- $1$ </p>#1#-->
+        <!-- </div>-->
+        <!-- </div>-->
+        <!-- </div>-->
+        <!-- <div class="col-lg-3 col-md-6 col-sm-12">-->
+        <!-- <div class="card">-->
+        <!-- <div class="card-content blue-grey white-text">-->
+        <!-- <p class="card-stats-title"><i class="material-icons">mood</i> Sentiment</p>-->
+        <!-- <h4 class="card-stats-number">fear</h4>-->
+        <!-- <p class="card-stats-compare">-->
+        <!-- <span class="blue-grey-text text-lighten-5">foo</span>-->
+        <!-- </p>-->
+        <!-- $1$ <h4 class="card-stats-number">{{vm.aggregatedData.sentiment.name || 'Uknown'}}</h4>#1#-->
+        <!-- $1$ <p class="card-stats-compare">#1#-->
+        <!-- $1$ <span class="blue-grey-text text-lighten-5">{{vm.currentAfterDate.local().fromNow()}}</span>#1#-->
+        <!-- $1$ </p>#1#-->
+        <!-- </div>-->
+        <!-- </div>-->
+        <!-- </div>-->
+        <!-- <div class="col-lg-3 col-md-6 col-sm-12">-->
+        <!-- <div class="card">-->
+        <!-- <div class="card-content purple white-text">-->
+        <!-- <p class="card-stats-title"><i class="material-icons">wc</i> Gender</p>-->
+        <!-- <h2 class="card-stats-number">-->
+        <!-- <i class="fa fa-male fa-2x"></i> {{campaignAgData?.males || 0}} / <i class="fa fa-female fa-2x"></i> {{campaignAgData?.females || 0}}-->
+        <!-- </h2>-->
+        <!-- </div>-->
+        <!-- </div>-->
+        <!-- </div>-->
 
         <!--    <div id="ad-stats-container" class="row">-->
         <!--        <div class="col-lg-3 col-md-6 col-sm-12">-->
@@ -140,3 +167,4 @@
         <!--$1$    </div>#1#-->
 
     </div>
+</div>

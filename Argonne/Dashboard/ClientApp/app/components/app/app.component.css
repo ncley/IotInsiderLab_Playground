@@ -4,3 +4,11 @@
         padding-top: 50px;
     }
 }
+
+#home-content {
+    margin-top: 15px !important;
+}
+
+.body-content {
+    padding-top: 10px;
+}
