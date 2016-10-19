@@ -10,6 +10,41 @@ import moment = require("moment");
     providers: [Service.ArgonneService]
 })
 export class HomeComponent {
+    public barChartOptions: any = {
+        scaleShowVerticalLines: false,
+        responsive: true,
+        scales: {
+            yAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'number of viewers'
+                }
+            }],
+            xAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'age range'
+                }
+            }]
+        }
+    };
+    public barChartLabels: string[] = ['0-15', '16-19', '20s', '30s', '40s', '50+'];
+    public barChartType: string = 'bar';
+    public barChartLegend: boolean = true;
+
+    public barChartData: any[] = [{
+            data: [65, 59, 80, 81, 56, 55, 40],
+            label: 'Viewers'
+//            backgroundColor: [
+//                'rgba(255, 99, 132, 0.2)',
+//                'rgba(54, 162, 235, 0.2)',
+//                'rgba(255, 206, 86, 0.2)',
+//                'rgba(75, 192, 192, 0.2)',
+//                'rgba(153, 102, 255, 0.2)',
+//                'rgba(255, 159, 64, 0.2)'
+//            ],
+    }];
+
     // contains the timestamp of when the page was loaded.
     private currentAfterDate: any;
 
@@ -85,9 +120,14 @@ export class HomeComponent {
                 this.campaignAgData.totalFaces = this.sumPropertyOnArray(this.aggregateDataByAd, 'totalFaces');
                 this.campaignAgData.uniqueFaces = this.sumPropertyOnArray(this.aggregateDataByAd, 'uniqueFaces');
 
-                //this.campaignAgData = campaignAdAggregations[0];
-                // update the demo chart
-                //this.updateChart();
+                this.barChartData[0].data[0] = this.campaignAgData.ageBracket1;
+                this.barChartData[0].data[1] = this.campaignAgData.ageBracket2;
+                this.barChartData[0].data[2] = this.campaignAgData.ageBracket3;
+                this.barChartData[0].data[3] = this.campaignAgData.ageBracket4;
+                this.barChartData[0].data[4] = this.campaignAgData.ageBracket5;
+
+                //hack to force chart to update so Y-axis scaling updates
+                this.barChartData = this.barChartData.slice();
             }
         });
     }

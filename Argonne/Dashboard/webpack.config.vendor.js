@@ -33,6 +33,7 @@ module.exports = {
             'event-source-polyfill',
             'font-awesome/css/font-awesome.css',
             'jquery',
+            'ng2-charts',
             'webpack-material-design-icons',
             'zone.js',
         ]
