@@ -34,6 +34,8 @@ module.exports = {
             'es6-shim',
             'es6-promise',
             'event-source-polyfill',
+            'font-awesome',
+            'font-awesome/css/font-awesome.css',
             'jquery',
             'webpack-material-design-icons',
             'zone.js',
