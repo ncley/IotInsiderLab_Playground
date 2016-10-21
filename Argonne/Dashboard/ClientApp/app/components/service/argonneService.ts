@@ -12,23 +12,23 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class ArgonneService {
-    // replace with valid service URL
-    private BASE_URI: string = 'http://api-argonne.azurewebsites.net';
+    private BASE_URI: string = '/api/data';
+    //private BASE_URI: string = 'http://api-argonne.azurewebsites.net';
 
     constructor(private $http: Http) {
     }
 
-    public getImpressionsForCampaign(campaignId: string, showAfter: string = null): Observable<Dto.ImpressionDto[]>{
-        var url = this.BASE_URI + '/api/admin/Campaign/' + campaignId + '/Impressions/After';
-        let params: URLSearchParams = new URLSearchParams();
-        params.set('after', showAfter);
-        params.set('PageSize', '1000');
-        return this.$http.get(url, { search: params }).map(response => <Dto.ImpressionDto[]>response.json());
-    }
+//    public getImpressionsForCampaign(campaignId: string, showAfter: string = null): Observable<Dto.ImpressionDto[]>{
+//        var url = this.BASE_URI + '/api/admin/Campaign/' + campaignId + '/Impressions/After';
+//        let params: URLSearchParams = new URLSearchParams();
+//        params.set('after', showAfter);
+//        params.set('PageSize', '1000');
+//        return this.$http.get(url, { search: params }).map(response => <Dto.ImpressionDto[]>response.json());
+//    }
 
     public getCampaignAggregate(campaignId: string, start: string = null, end: string = null): Observable<Dto4.AdAggregateData[]> {
-        //var url = '/api/campaign/aggregate/' + campaignId;
-        var url = this.BASE_URI + '/api/admin/Campaign/' + campaignId + '/impressions/aggregate';
+        //var url = this.BASE_URI + '/api/admin/Campaign/' + campaignId + '/impressions/aggregate';
+        var url = this.BASE_URI + '/campaign/' + campaignId + '/impressions/aggregate';
         let params: URLSearchParams = new URLSearchParams();
         params.set('start', start);
         params.set('end', end);
