@@ -974,8 +974,8 @@ namespace ArgonneDashboard.ArgonneServiceClient
             }
 
             /// <summary>
-            /// Get the highest scoring (average) emotion for a campaign during an
-            /// interval of time
+            /// Aggregated demographic and sentiment for a campaign during an interval of
+            /// time
             /// </summary>
             /// Id must be a valid GUID
             /// <param name='operations'>
@@ -1000,8 +1000,8 @@ namespace ArgonneDashboard.ArgonneServiceClient
             }
 
             /// <summary>
-            /// Get the highest scoring (average) emotion for a campaign during an
-            /// interval of time
+            /// Aggregated demographic and sentiment for a campaign during an interval of
+            /// time
             /// </summary>
             /// Id must be a valid GUID
             /// <param name='operations'>
@@ -1026,6 +1026,64 @@ namespace ArgonneDashboard.ArgonneServiceClient
             public static async Task<IList<AdAggregateData>> ApiAdminCampaignByCampaignidImpressionsAggregateGetAsync(this IArgonneAPI operations, string campaignid, int? pageNumber = default(int?), int? pageSize = default(int?), DateTime? start = default(DateTime?), DateTime? end = default(DateTime?), CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.ApiAdminCampaignByCampaignidImpressionsAggregateGetWithHttpMessagesAsync(campaignid, pageNumber, pageSize, start, end, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Aggregated demographic and sentiment for a campaign during an interval of
+            /// time
+            /// </summary>
+            /// Id must be a valid GUID
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='campaignid'>
+            /// unique identifier for a campaign
+            /// </param>
+            /// <param name='pageNumber'>
+            /// </param>
+            /// <param name='pageSize'>
+            /// </param>
+            /// <param name='start'>
+            /// timestamp for start of series
+            /// </param>
+            /// <param name='end'>
+            /// timestamp for end of series
+            /// </param>
+            public static IList<CampaignAdAggregateData> ApiAdminCampaignByCampaignidImpressionsAggregatebyadGet(this IArgonneAPI operations, string campaignid, int? pageNumber = default(int?), int? pageSize = default(int?), DateTime? start = default(DateTime?), DateTime? end = default(DateTime?))
+            {
+                return Task.Factory.StartNew(s => ((IArgonneAPI)s).ApiAdminCampaignByCampaignidImpressionsAggregatebyadGetAsync(campaignid, pageNumber, pageSize, start, end), operations, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Aggregated demographic and sentiment for a campaign during an interval of
+            /// time
+            /// </summary>
+            /// Id must be a valid GUID
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='campaignid'>
+            /// unique identifier for a campaign
+            /// </param>
+            /// <param name='pageNumber'>
+            /// </param>
+            /// <param name='pageSize'>
+            /// </param>
+            /// <param name='start'>
+            /// timestamp for start of series
+            /// </param>
+            /// <param name='end'>
+            /// timestamp for end of series
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IList<CampaignAdAggregateData>> ApiAdminCampaignByCampaignidImpressionsAggregatebyadGetAsync(this IArgonneAPI operations, string campaignid, int? pageNumber = default(int?), int? pageSize = default(int?), DateTime? start = default(DateTime?), DateTime? end = default(DateTime?), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiAdminCampaignByCampaignidImpressionsAggregatebyadGetWithHttpMessagesAsync(campaignid, pageNumber, pageSize, start, end, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

@@ -13,12 +13,12 @@
                         <div class="col-xs-9 text-right">
                             <div class="row">
                                 <div class="col-xs-12">
-                                    {{campaignAgData?.uniqueFaces|| 0}} unique
+                                    {{campaignAggregateData?.uniqueFaces|| 0}} unique
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    {{campaignAgData?.totalFaces|| 0}} total
+                                    {{campaignAggregateData?.totalFaces|| 0}} total
                                 </div>
                             </div>
                         </div>
@@ -41,12 +41,12 @@
                         <div class="col-xs-9 text-right">
                             <div class="row">
                                 <div class="col-xs-12">
-                                    {{campaignAgData?.females|| 0}} female
+                                    {{campaignAggregateData?.uniqueFemales|| 0}} female
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    {{campaignAgData?.males|| 0}} male
+                                    {{campaignAggregateData?.uniqueMales|| 0}} male
                                 </div>
                             </div>
                         </div>
@@ -126,7 +126,7 @@
         <!-- <div class="card-content purple white-text">-->
         <!-- <p class="card-stats-title"><i class="material-icons">wc</i> Gender</p>-->
         <!-- <h2 class="card-stats-number">-->
-        <!-- <i class="fa fa-male fa-2x"></i> {{campaignAgData?.males || 0}} / <i class="fa fa-female fa-2x"></i> {{campaignAgData?.females || 0}}-->
+        <!-- <i class="fa fa-male fa-2x"></i> {{campaignAggregateData?.males || 0}} / <i class="fa fa-female fa-2x"></i> {{campaignAggregateData?.females || 0}}-->
         <!-- </h2>-->
         <!-- </div>-->
         <!-- </div>-->

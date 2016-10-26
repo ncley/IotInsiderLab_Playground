@@ -19,7 +19,7 @@ namespace ArgonneDashboard.Controllers
 
         #region Campaign
         /// <summary>
-        /// Get the highest scoring (average) emotion for a campaign during an interval of time
+        /// Demographic and sentiment data for a campaign during an interval of time
         /// </summary>
         /// <param name="campaignid">unique identifier for a campaign</param>
         /// <param name="start">timestamp for start of series</param>
@@ -40,6 +40,29 @@ namespace ArgonneDashboard.Controllers
             using (ArgonneAPI client = new ArgonneAPI(new Uri(ServiceUri)))
             {
                 return new OkObjectResult(await client.ApiAdminCampaignByCampaignidImpressionsAggregateGetAsync(campaignid, start: start, end: end).ConfigureAwait(false));
+            }
+        }
+
+        /// <summary>
+        /// Demographic and sentiment data for a campaign (grouped by ad) during an interval of time
+        /// </summary>
+        /// <param name="campaignid">unique identifier for a campaign</param>
+        /// <remarks>
+        /// Id must be a valid GUID
+        /// </remarks>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not Found</response>
+        /// <response code="400">Invalid Id</response>
+        [Route("api/[controller]/campaign/{campaignid}/impressions/aggregatebyad", Name = "GetAggregateImpressionsForCampaignByAd")]
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<CampaignAdAggregateData>), 200)]
+        public async Task<IActionResult> GetAggregateImpressionsForCampaignByAd(string campaignid)
+        {
+            //we always ask for the last 24 hours
+            var startTime = DateTime.UtcNow.AddHours(-24);
+            using (ArgonneAPI client = new ArgonneAPI(new Uri(ServiceUri)))
+            {
+                return new OkObjectResult(await client.ApiAdminCampaignByCampaignidImpressionsAggregatebyadGetAsync(campaignid, start: startTime, end: null).ConfigureAwait(false));
             }
         }
 
