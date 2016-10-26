@@ -5,6 +5,7 @@ import Dto = require("../model/CampaignAdAggregateData");
 import Service = require("../service/ArgonneService");
 //import moment = require("moment");
 
+
 @Component({
     selector: 'home',
     template: require('./home.component.html'),
@@ -19,32 +20,32 @@ export class HomeComponent {
                 scaleLabel: {
                     display: true,
                     labelString: 'number of viewers'
-                }
+                },
+                stacked:true
             }],
             xAxes: [{
                 scaleLabel: {
                     display: true,
                     labelString: 'age range'
-                }
+                },
+                stacked:true
             }]
         }
     };
+
     public barChartLabels: string[] = ['0-15', '16-19', '20s', '30s', '40s', '50s','60+'];
     public barChartType: string = 'bar';
     public barChartLegend: boolean = true;
 
     public barChartData: any[] = [{
             data: [0,0,0,0,0,0,0],
-            label: 'Viewers'
-//            backgroundColor: [
-//                'rgba(255, 99, 132, 0.2)',
-//                'rgba(54, 162, 235, 0.2)',
-//                'rgba(255, 206, 86, 0.2)',
-//                'rgba(75, 192, 192, 0.2)',
-//                'rgba(153, 102, 255, 0.2)',
-//                'rgba(255, 159, 64, 0.2)'
-//            ],
-    }];
+            label: 'Females'
+        },
+        {
+            data: [0, 0, 0, 0, 0, 0, 0],
+            label: 'Males'
+        },
+    ];
 
     // contains the timestamp of when the page was loaded.
 //    private currentAfterDate: any;
@@ -84,30 +85,40 @@ export class HomeComponent {
             if (this.aggregateDataByAd != null && this.aggregateDataByAd.length > 0) {
 
                 //Sum the ad data at the campaign level
-                this.campaignAggregateData = this.aggregateDataByAd[0];
+                var tempAg = this.aggregateDataByAd[0];
 
-                this.campaignAggregateData.ageBracket0 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket0');
-                this.campaignAggregateData.ageBracket1 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket1');
-                this.campaignAggregateData.ageBracket2 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket2');
-                this.campaignAggregateData.ageBracket3 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket3');
-                this.campaignAggregateData.ageBracket4 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket4');
-                this.campaignAggregateData.ageBracket5 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket5');
-                this.campaignAggregateData.ageBracket6 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket6');
-                this.campaignAggregateData.uniqueFemales = this.sumPropertyOnArray(this.aggregateDataByAd, 'uniqueFemales');
-                this.campaignAggregateData.uniqueMales = this.sumPropertyOnArray(this.aggregateDataByAd, 'uniqueMales');
-                this.campaignAggregateData.totalFaces = this.sumPropertyOnArray(this.aggregateDataByAd, 'totalFaces');
-                this.campaignAggregateData.uniqueFaces = this.sumPropertyOnArray(this.aggregateDataByAd, 'uniqueFaces');
+                tempAg.ageBracket0 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket0');
+                tempAg.ageBracket1 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket1');
+                tempAg.ageBracket2 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket2');
+                tempAg.ageBracket3 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket3');
+                tempAg.ageBracket4 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket4');
+                tempAg.ageBracket5 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket5');
+                tempAg.ageBracket6 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket6');
+                tempAg.uniqueFemales = this.sumPropertyOnArray(this.aggregateDataByAd, 'uniqueFemales');
+                tempAg.uniqueMales = this.sumPropertyOnArray(this.aggregateDataByAd, 'uniqueMales');
+                tempAg.totalFaces = this.sumPropertyOnArray(this.aggregateDataByAd, 'totalFaces');
+                tempAg.uniqueFaces = this.sumPropertyOnArray(this.aggregateDataByAd, 'uniqueFaces');
 
-                this.barChartData[0].data[0] = this.campaignAggregateData.ageBracket0;
-                this.barChartData[0].data[1] = this.campaignAggregateData.ageBracket1;
-                this.barChartData[0].data[2] = this.campaignAggregateData.ageBracket2;
-                this.barChartData[0].data[3] = this.campaignAggregateData.ageBracket3;
-                this.barChartData[0].data[4] = this.campaignAggregateData.ageBracket4;
-                this.barChartData[0].data[5] = this.campaignAggregateData.ageBracket5;
-                this.barChartData[0].data[6] = this.campaignAggregateData.ageBracket6;
+                this.campaignAggregateData = tempAg;
 
-                //hack to force chart to update so Y-axis scaling updates
-                this.barChartData = this.barChartData.slice();
+//                this.barChartData[0].data[0] = this.campaignAggregateData.ageBracket0Females;
+//                this.barChartData[0].data[1] = this.campaignAggregateData.ageBracket1Females;
+//                this.barChartData[0].data[2] = this.campaignAggregateData.ageBracket2Females;
+//                this.barChartData[0].data[3] = this.campaignAggregateData.ageBracket3Females;
+//                this.barChartData[0].data[4] = this.campaignAggregateData.ageBracket4Females;
+//                this.barChartData[0].data[5] = this.campaignAggregateData.ageBracket5Females;
+//                this.barChartData[0].data[6] = this.campaignAggregateData.ageBracket6Females;
+//
+//                this.barChartData[1].data[0] = this.campaignAggregateData.ageBracket0Males;
+//                this.barChartData[1].data[1] = this.campaignAggregateData.ageBracket1Males;
+//                this.barChartData[1].data[2] = this.campaignAggregateData.ageBracket2Males;
+//                this.barChartData[1].data[3] = this.campaignAggregateData.ageBracket3Males;
+//                this.barChartData[1].data[4] = this.campaignAggregateData.ageBracket4Males;
+//                this.barChartData[1].data[5] = this.campaignAggregateData.ageBracket5Males;
+//                this.barChartData[1].data[6] = this.campaignAggregateData.ageBracket6Males;
+//
+//                //hack to force chart to update so Y-axis scaling updates
+//                this.barChartData = this.barChartData.slice();
             }
         });
     }

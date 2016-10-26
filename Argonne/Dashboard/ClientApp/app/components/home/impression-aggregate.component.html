@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- faces -->
+        <div class="col-lg-4 col-md-5">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-users fa-4x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    {{aggregateData?.uniqueFaces|| 0}} unique
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    {{aggregateData?.totalFaces|| 0}} total
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <span class="pull-left">Ad Viewers Recognized</span>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <!-- gender -->
+        <div class="col-lg-4 col-md-5">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-venus-mars fa-4x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    {{aggregateData?.uniqueFemales|| 0}} female
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    {{aggregateData?.uniqueMales|| 0}} male
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <span class="pull-left">Ad Viewer Gender</span>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Age & Gender chart -->
+        <div class="col-lg-8 col-md-10">
+            <div>
+                <div style="display: block">
+                    <canvas baseChart
+                            [datasets]="barChartData"
+                            [labels]="barChartLabels"
+                            [options]="barChartOptions"
+                            [legend]="barChartLegend"
+                            [chartType]="barChartType"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
