@@ -64,7 +64,7 @@ export class ImpressionAggregateComponent {
             this.barChartData[1].data[6] = this.aggregateData.ageBracket6Males;
 
             //hack to force chart to update so Y-axis scaling updates
-            this.barChartData = this.barChartData.slice();            
+            //this.barChartData = this.barChartData.slice();            
         }
     }
 
