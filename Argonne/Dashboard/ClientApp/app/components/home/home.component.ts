@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 //import Dto = require("../model/CampaignDto");
 import Dto = require("../model/CampaignAdAggregateData");
 //import AggregateData = require("../model/AdAggregateData");
@@ -11,49 +11,9 @@ import Service = require("../service/ArgonneService");
     template: require('./home.component.html'),
     providers: [Service.ArgonneService]
 })
-export class HomeComponent {
-    public barChartOptions: any = {
-        scaleShowVerticalLines: false,
-        responsive: true,
-        scales: {
-            yAxes: [{
-                scaleLabel: {
-                    display: true,
-                    labelString: 'number of viewers'
-                },
-                stacked:true
-            }],
-            xAxes: [{
-                scaleLabel: {
-                    display: true,
-                    labelString: 'age range'
-                },
-                stacked:true
-            }]
-        }
-    };
+export class HomeComponent implements OnInit, OnDestroy{
 
-    public barChartLabels: string[] = ['0-15', '16-19', '20s', '30s', '40s', '50s','60+'];
-    public barChartType: string = 'bar';
-    public barChartLegend: boolean = true;
-
-    public barChartData: any[] = [{
-            data: [0,0,0,0,0,0,0],
-            label: 'Females'
-        },
-        {
-            data: [0, 0, 0, 0, 0, 0, 0],
-            label: 'Males'
-        },
-    ];
-
-    // contains the timestamp of when the page was loaded.
-//    private currentAfterDate: any;
-
-    //public aggregateDataByAd: AggregateData.AdAggregateData[];
-
-//    // stores the specified or default campaign
-//    public currentCampaign: Dto.CampaignDto;
+    intervalId = 0;
 
     public aggregateDataByAd: Dto.CampaignAdAggregateData[];
 
@@ -69,7 +29,23 @@ export class HomeComponent {
     constructor(private argonneService: Service.ArgonneService) {
         //this.currentAfterDate = moment.utc(); // initializes to the current time
         this.currentCampaignId = this.CAMPAIGN_ID;
+        //this.getData();
+    }
+
+
+    ngOnInit() { this.startPolling(); }
+    ngOnDestroy() { this.stopPolling(); }
+
+    startPolling() {
         this.getData();
+
+        this.intervalId = window.setInterval(() => {
+            this.getData();
+        }, 30000);
+    }
+
+    stopPolling() {
+        clearInterval(this.intervalId);
     }
 
     private sumPropertyOnArray(theArray, propertyName) {
