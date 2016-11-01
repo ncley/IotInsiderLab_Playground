@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy{
 
         this.intervalId = window.setInterval(() => {
             this.getData();
-        }, 30000);
+        }, 20000);
     }
 
     stopPolling() {
