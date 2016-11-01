@@ -506,6 +506,32 @@ namespace ArgonneDashboard.ArgonneServiceClient
         Task<HttpOperationResponse<IList<CampaignAdAggregateData>>> ApiAdminCampaignByCampaignidImpressionsAggregatebyadGetWithHttpMessagesAsync(string campaignid, int? pageNumber = default(int?), int? pageSize = default(int?), DateTime? start = default(DateTime?), DateTime? end = default(DateTime?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
+        /// Aggregated demographic and sentiment for a campaign during an
+        /// interval of time
+        /// </summary>
+        /// Id must be a valid GUID
+        /// <param name='campaignid'>
+        /// unique identifier for a campaign
+        /// </param>
+        /// <param name='pageNumber'>
+        /// </param>
+        /// <param name='pageSize'>
+        /// </param>
+        /// <param name='start'>
+        /// timestamp for start of series
+        /// </param>
+        /// <param name='end'>
+        /// timestamp for end of series
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<IList<AdSentimentData>>> ApiAdminCampaignByCampaignidSentimentsAggregatebyadGetWithHttpMessagesAsync(string campaignid, int? pageNumber = default(int?), int? pageSize = default(int?), DateTime? start = default(DateTime?), DateTime? end = default(DateTime?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
         /// Get all devices
         /// </summary>
         /// <param name='pageNumber'>

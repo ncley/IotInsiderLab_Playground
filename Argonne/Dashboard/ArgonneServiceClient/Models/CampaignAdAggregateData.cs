@@ -13,6 +13,7 @@ namespace ArgonneDashboard.ArgonneServiceClient.Models
 
     public partial class CampaignAdAggregateData
     {
+
         /// <summary>
         /// Initializes a new instance of the CampaignAdAggregateData class.
         /// </summary>
@@ -21,7 +22,7 @@ namespace ArgonneDashboard.ArgonneServiceClient.Models
         /// <summary>
         /// Initializes a new instance of the CampaignAdAggregateData class.
         /// </summary>
-        public CampaignAdAggregateData(Guid? campaignId = default(Guid?), string campaignName = default(string), Guid? displayedAdId = default(Guid?), string adName = default(string), int? totalFaces = default(int?), int? uniqueFaces = default(int?), string overallSentiment = default(string), int? minAge = default(int?), int? maxAge = default(int?), int? uniqueMales = default(int?), int? uniqueFemales = default(int?), int? ageBracket0 = default(int?), int? ageBracket0Males = default(int?), int? ageBracket0Females = default(int?), int? ageBracket1 = default(int?), int? ageBracket1Males = default(int?), int? ageBracket1Females = default(int?), int? ageBracket2 = default(int?), int? ageBracket2Males = default(int?), int? ageBracket2Females = default(int?), int? ageBracket3 = default(int?), int? ageBracket3Males = default(int?), int? ageBracket3Females = default(int?), int? ageBracket4 = default(int?), int? ageBracket4Males = default(int?), int? ageBracket4Females = default(int?), int? ageBracket5 = default(int?), int? ageBracket5Males = default(int?), int? ageBracket5Females = default(int?), int? ageBracket6 = default(int?), int? ageBracket6Males = default(int?), int? ageBracket6Females = default(int?))
+        public CampaignAdAggregateData(Guid? campaignId = default(Guid?), string campaignName = default(string), Guid? displayedAdId = default(Guid?), string adName = default(string), int? totalFaces = default(int?), int? uniqueFaces = default(int?), string overallSentiment = default(string), double? totalAnger = default(double?), double? totalContempt = default(double?), double? totalDisgust = default(double?), double? totalFear = default(double?), double? totalHappiness = default(double?), double? totalNeutral = default(double?), double? totalSadness = default(double?), double? totalSurprise = default(double?), int? minAge = default(int?), int? maxAge = default(int?), int? uniqueMales = default(int?), int? uniqueFemales = default(int?), int? ageBracket0 = default(int?), int? ageBracket0Males = default(int?), int? ageBracket0Females = default(int?), int? ageBracket1 = default(int?), int? ageBracket1Males = default(int?), int? ageBracket1Females = default(int?), int? ageBracket2 = default(int?), int? ageBracket2Males = default(int?), int? ageBracket2Females = default(int?), int? ageBracket3 = default(int?), int? ageBracket3Males = default(int?), int? ageBracket3Females = default(int?), int? ageBracket4 = default(int?), int? ageBracket4Males = default(int?), int? ageBracket4Females = default(int?), int? ageBracket5 = default(int?), int? ageBracket5Males = default(int?), int? ageBracket5Females = default(int?), int? ageBracket6 = default(int?), int? ageBracket6Males = default(int?), int? ageBracket6Females = default(int?))
         {
             CampaignId = campaignId;
             CampaignName = campaignName;
@@ -30,6 +31,14 @@ namespace ArgonneDashboard.ArgonneServiceClient.Models
             TotalFaces = totalFaces;
             UniqueFaces = uniqueFaces;
             OverallSentiment = overallSentiment;
+            TotalAnger = totalAnger;
+            TotalContempt = totalContempt;
+            TotalDisgust = totalDisgust;
+            TotalFear = totalFear;
+            TotalHappiness = totalHappiness;
+            TotalNeutral = totalNeutral;
+            TotalSadness = totalSadness;
+            TotalSurprise = totalSurprise;
             MinAge = minAge;
             MaxAge = maxAge;
             UniqueMales = uniqueMales;
@@ -91,6 +100,46 @@ namespace ArgonneDashboard.ArgonneServiceClient.Models
         /// </summary>
         [JsonProperty(PropertyName = "overallSentiment")]
         public string OverallSentiment { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "totalAnger")]
+        public double? TotalAnger { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "totalContempt")]
+        public double? TotalContempt { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "totalDisgust")]
+        public double? TotalDisgust { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "totalFear")]
+        public double? TotalFear { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "totalHappiness")]
+        public double? TotalHappiness { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "totalNeutral")]
+        public double? TotalNeutral { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "totalSadness")]
+        public double? TotalSadness { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "totalSurprise")]
+        public double? TotalSurprise { get; set; }
 
         /// <summary>
         /// </summary>

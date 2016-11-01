@@ -1,9 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-//import Dto = require("../model/CampaignDto");
 import Dto = require("../model/CampaignAdAggregateData");
-//import AggregateData = require("../model/AdAggregateData");
+import Dto1 = require("../model/AdSentimentData");
 import Service = require("../service/ArgonneService");
-//import moment = require("moment");
 
 
 @Component({
@@ -15,21 +13,20 @@ export class HomeComponent implements OnInit, OnDestroy{
 
     intervalId = 0;
 
-    public aggregateDataByAd: Dto.CampaignAdAggregateData[];
+    public perAdData = [];
 
-    // contains the webapi campaign ads aggregated data
+    //public sentimentDataByAd: Dto1.AdSentimentData[];
+    //public campaignSentimentData: Dto1.AdSentimentData;
+
+    public aggregateDataByAd: Dto.CampaignAdAggregateData[];
     public campaignAggregateData: Dto.CampaignAdAggregateData;
 
-    // current campaign id (default or passed in)
     public currentCampaignId: string;
-
-    // Specify the default campaign
     private CAMPAIGN_ID = '3149351f-3c9e-4d0a-bfa5-d8caacfd77f0';
 
     constructor(private argonneService: Service.ArgonneService) {
         //this.currentAfterDate = moment.utc(); // initializes to the current time
         this.currentCampaignId = this.CAMPAIGN_ID;
-        //this.getData();
     }
 
 
@@ -53,14 +50,11 @@ export class HomeComponent implements OnInit, OnDestroy{
     };
 
     private getData() {
-        // get the web api aggregated data
         this.argonneService.getCampaignAggregateByAd(this.CAMPAIGN_ID).subscribe(serviceResponse => {
             this.aggregateDataByAd = serviceResponse;
 
-            // save the campaign aggregated data
             if (this.aggregateDataByAd != null && this.aggregateDataByAd.length > 0) {
-
-                //Sum the ad data at the campaign level
+                //make a copy of the first result to use as the campaign aggregate model
                 var tempAg = JSON.parse(JSON.stringify(this.aggregateDataByAd[0]));
 
                 //null out campaign name for ad objects (yes, this is hacky :( )
@@ -68,6 +62,7 @@ export class HomeComponent implements OnInit, OnDestroy{
                     this.aggregateDataByAd[index].campaignName = null;
                 }
 
+                //Sum the ad data at the campaign level
                 tempAg.ageBracket0 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket0');
                 tempAg.ageBracket0Females = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket0Females');
                 tempAg.ageBracket0Males = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket0Males');
@@ -101,50 +96,41 @@ export class HomeComponent implements OnInit, OnDestroy{
                 tempAg.totalFaces = this.sumPropertyOnArray(this.aggregateDataByAd, 'totalFaces');
                 tempAg.uniqueFaces = this.sumPropertyOnArray(this.aggregateDataByAd, 'uniqueFaces');
 
+                //Sum the ad data at the campaign level
+                tempAg.totalAnger = this.sumPropertyOnArray(this.aggregateDataByAd, 'totalAnger');
+                tempAg.totalContempt = this.sumPropertyOnArray(this.aggregateDataByAd, 'totalContempt');
+                tempAg.totalDisgust = this.sumPropertyOnArray(this.aggregateDataByAd, 'totalDisgust');
+                tempAg.totalFear = this.sumPropertyOnArray(this.aggregateDataByAd, 'totalFear');
+                tempAg.totalHappiness = this.sumPropertyOnArray(this.aggregateDataByAd, 'totalHappiness');
+                tempAg.totalNeutral = this.sumPropertyOnArray(this.aggregateDataByAd, 'totalNeutral');
+                tempAg.totalSadness = this.sumPropertyOnArray(this.aggregateDataByAd, 'totalSadness');
+                tempAg.totalSurprise = this.sumPropertyOnArray(this.aggregateDataByAd, 'totalSurprise');
+
                 tempAg.adName = null;
                 this.campaignAggregateData = tempAg;
-
             }
         });
-    }
 
-
-//    private getData() {
-//        // format the timestamp
-//        //var afterTimestamp = this.currentAfterDate.local().format("YYYY-MM-DDTHH:mm:ss");
-//
-//        var afterTimestamp = this.currentAfterDate.local().format("2016-10-13T00:00:00");
-//
 //        // get the web api aggregated data
-//        this.argonneService.getCampaignAggregate(this.CAMPAIGN_ID, afterTimestamp).subscribe(serviceResponse => {
-//            this.aggregateDataByAd = serviceResponse;
+//        this.argonneService.getCampaignSentimentsAggregateByAd(this.CAMPAIGN_ID).subscribe(serviceResponse => {
+//            this.sentimentDataByAd = serviceResponse;
 //
-//            // save the campaign aggregated data
-//            if (this.aggregateDataByAd != null && this.aggregateDataByAd.length > 0) {
+//            if (this.sentimentDataByAd != null && this.sentimentDataByAd.length > 0) {
+//                //make a copy of the first result to use as the campaign aggregate model
+//                var tempAg = JSON.parse(JSON.stringify(this.sentimentDataByAd[0]));
 //
 //                //Sum the ad data at the campaign level
-//                this.campaignAggregateData = this.aggregateDataByAd[0];
+//                tempAg.anger = this.sumPropertyOnArray(this.sentimentDataByAd, 'anger');
+//                tempAg.contempt = this.sumPropertyOnArray(this.sentimentDataByAd, 'contempt');
+//                tempAg.disgust = this.sumPropertyOnArray(this.sentimentDataByAd, 'disgust');
+//                tempAg.fear = this.sumPropertyOnArray(this.sentimentDataByAd, 'fear');
+//                tempAg.happiness = this.sumPropertyOnArray(this.sentimentDataByAd, 'happiness');
+//                tempAg.neutral = this.sumPropertyOnArray(this.sentimentDataByAd, 'neutral');
+//                tempAg.sadness = this.sumPropertyOnArray(this.sentimentDataByAd, 'sadness');
+//                tempAg.surprise = this.sumPropertyOnArray(this.sentimentDataByAd, 'surprise');
 //
-//                this.campaignAggregateData.ageBracket1 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket1');
-//                this.campaignAggregateData.ageBracket2 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket2');
-//                this.campaignAggregateData.ageBracket3 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket3');
-//                this.campaignAggregateData.ageBracket4 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket4');
-//                this.campaignAggregateData.ageBracket5 = this.sumPropertyOnArray(this.aggregateDataByAd, 'ageBracket5');
-//                this.campaignAggregateData.females = this.sumPropertyOnArray(this.aggregateDataByAd, 'females');
-//                this.campaignAggregateData.males = this.sumPropertyOnArray(this.aggregateDataByAd, 'males');
-//                this.campaignAggregateData.totalFaces = this.sumPropertyOnArray(this.aggregateDataByAd, 'totalFaces');
-//                this.campaignAggregateData.uniqueFaces = this.sumPropertyOnArray(this.aggregateDataByAd, 'uniqueFaces');
-//
-//                this.barChartData[0].data[0] = this.campaignAggregateData.ageBracket1;
-//                this.barChartData[0].data[1] = this.campaignAggregateData.ageBracket2;
-//                this.barChartData[0].data[2] = this.campaignAggregateData.ageBracket3;
-//                this.barChartData[0].data[3] = this.campaignAggregateData.ageBracket4;
-//                this.barChartData[0].data[4] = this.campaignAggregateData.ageBracket5;
-//
-//                //hack to force chart to update so Y-axis scaling updates
-//                this.barChartData = this.barChartData.slice();
+//                this.campaignAggregateData = tempAg;
 //            }
 //        });
-//    }
-
+    }
 }

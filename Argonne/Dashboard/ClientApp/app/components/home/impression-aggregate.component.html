@@ -10,7 +10,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-users fa-4x"></i>
+                                    <i class="fa fa-users fa-3x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="row">
@@ -38,7 +38,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-venus-mars fa-4x"></i>
+                                    <i class="fa fa-venus-mars fa-3x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="row">
@@ -62,16 +62,32 @@
                 </div>
             </div>
             <div class="row">
-                <!-- Age & Gender chart -->
-                <div class="col-sm-12">
+                <!-- sentiment chart -->
+                <div class="col-sm-6">
                     <div>
                         <div style="display: block">
                             <canvas baseChart
-                                    [datasets]="barChartData"
-                                    [labels]="barChartLabels"
-                                    [options]="barChartOptions"
-                                    [legend]="barChartLegend"
-                                    [chartType]="barChartType"></canvas>
+                                    [datasets]="sentimentChartData"
+                                    [labels]="sentimentChartLabels"
+                                    [options]="sentimentChartOptions"
+                                    [legend]="sentimentChartLegend"
+                                    [chartType]="sentimentChartType"
+                                    [colors]="sentimentChartColors"
+                                    height="250"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- Age & Gender chart -->
+                <div class="col-sm-6">
+                    <div>
+                        <div style="display: block">
+                            <canvas baseChart
+                                    [datasets]="genderChartData"
+                                    [labels]="genderChartLabels"
+                                    [options]="genderChartOptions"
+                                    [legend]="genderChartLegend"
+                                    [chartType]="genderChartType"
+                                    height="250"></canvas>
                         </div>
                     </div>
                 </div>
