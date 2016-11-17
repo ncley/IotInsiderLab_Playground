@@ -188,6 +188,7 @@ namespace AdminApi.Controllers
         /// </summary>
         /// <param name="id">Device Id</param>
         /// <param name="enabled">desired state of device</param>
+        /// <param name="reason">reason for enabled state change</param>
         /// <remarks>
         /// Id field is required
         /// </remarks>
@@ -199,7 +200,7 @@ namespace AdminApi.Controllers
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Device))]
         [SwaggerResponse(HttpStatusCode.BadRequest)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        public async Task<IHttpActionResult> Disable(string id, bool enabled)
+        public async Task<IHttpActionResult> Disable(string id, bool enabled, string reason = null)
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -212,6 +213,7 @@ namespace AdminApi.Controllers
                 return NotFound();
 
             device.Status = enabled? DeviceStatus.Enabled : DeviceStatus.Disabled;
+            device.StatusReason = reason;
             await registryManager.UpdateDeviceAsync(device, true);
 
             return Ok(device);
@@ -228,7 +230,7 @@ namespace AdminApi.Controllers
         [Route("api/device/{id}/twin", Name = "GetDeviceTwinByID")]
         [HttpGet]
         [SwaggerOperation("GetDeviceTwinByID")]
-        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Device))]
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Twin))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
         [SwaggerResponse(HttpStatusCode.BadRequest)]
         public async Task<IHttpActionResult> GetTwin(string id)

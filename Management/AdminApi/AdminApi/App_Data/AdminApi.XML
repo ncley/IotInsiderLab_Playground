@@ -46,12 +46,13 @@
             <response code="200">Success</response>
             <response code="400">Bad Request</response>
         </member>
-        <member name="M:AdminApi.Controllers.DeviceController.Disable(System.String,System.Boolean)">
+        <member name="M:AdminApi.Controllers.DeviceController.Disable(System.String,System.Boolean,System.String)">
             <summary>
             disable a device
             </summary>
             <param name="id">Device Id</param>
             <param name="enabled">desired state of device</param>
+            <param name="reason">reason for enabled state change</param>
             <remarks>
             Id field is required
             </remarks>
