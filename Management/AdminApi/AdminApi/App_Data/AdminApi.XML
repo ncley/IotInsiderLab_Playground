@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AdminApi</name>
+    </assembly>
+    <members>
+        <member name="T:AdminApi.Controllers.DeviceController">
+            <summary>
+            Administrator API for Campaigns
+            </summary>
+        </member>
+        <member name="M:AdminApi.Controllers.DeviceController.Get">
+            <summary>
+            Get all Devices
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:AdminApi.Controllers.DeviceController.Get(System.String)">
+            <summary>
+            Get Device
+            </summary>
+            <param name="id">Device Id</param>
+            <response code="200">Success</response>
+            <response code="400">Bad Request</response>
+            <response code="404">Not Found</response>
+        </member>
+        <member name="M:AdminApi.Controllers.DeviceController.Create(System.String)">
+            <summary>
+            Create a new device
+            </summary>
+            <param name="id">Device Id</param>
+            <remarks>
+            Id field is required
+            </remarks>
+            <response code="201">Created</response>
+            <response code="400">Bad Request</response>
+        </member>
+        <member name="M:AdminApi.Controllers.DeviceController.Delete(System.String)">
+            <summary>
+            Delete an existing Device
+            </summary>
+            <param name="id">unique identifier for a device</param>
+            <remarks>
+            Id must be valid
+            </remarks>
+            <response code="200">Success</response>
+            <response code="400">Bad Request</response>
+        </member>
+        <member name="M:AdminApi.Controllers.DeviceController.Disable(System.String,System.Boolean)">
+            <summary>
+            disable a device
+            </summary>
+            <param name="id">Device Id</param>
+            <param name="enabled">desired state of device</param>
+            <remarks>
+            Id field is required
+            </remarks>
+            <response code="201">Created</response>
+            <response code="400">Bad Request</response>
+            <response code="404">Not Found</response>
+        </member>
+        <member name="M:AdminApi.Controllers.DeviceController.GetTwin(System.String)">
+            <summary>
+            Get Device Twin
+            </summary>
+            <param name="id">Device Id</param>
+            <response code="200">Success</response>
+            <response code="400">Bad Request</response>
+            <response code="404">Not Found</response>
+        </member>
+    </members>
+</doc>
