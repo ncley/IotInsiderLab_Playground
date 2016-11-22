@@ -4,10 +4,64 @@
         <name>AdminApi</name>
     </assembly>
     <members>
+        <member name="T:AdminApi.Controllers.ActivationController">
+            <summary>
+            Administrator API for Campaigns
+            </summary>
+        </member>
+        <member name="M:AdminApi.Controllers.ActivationController.#ctor(AdminApi.Service.ActivationService)">
+            <summary>
+            DI constructor
+            </summary>
+            <param name="activationService"></param>
+        </member>
+        <member name="M:AdminApi.Controllers.ActivationController.Get(System.String)">
+            <summary>
+            Get activation record by id
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:AdminApi.Controllers.ActivationController.Enabled(System.String,System.Boolean,System.String)">
+            <summary>
+            enable/disable an activation record
+            </summary>
+            <param name="id">Id</param>
+            <param name="enabled">desired state of record</param>
+            <param name="reason">reason for enabled state change</param>
+            <remarks>
+            Id field is required
+            </remarks>
+            <response code="201">Created</response>
+            <response code="400">Bad Request</response>
+            <response code="404">Not Found</response>
+        </member>
+        <member name="M:AdminApi.Controllers.ActivationController.GetActivationsForDevice(System.String)">
+            <summary>
+            Get all activation records for a device
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:AdminApi.Controllers.ActivationController.CreateActivationForDevice(System.String)">
+            <summary>
+            Create a new activation for an existing device
+            </summary>
+            <param name="deviceId">Device Id</param>
+            <remarks>
+            Id field is required
+            </remarks>
+            <response code="201">Created</response>
+            <response code="400">Bad Request</response>
+        </member>
         <member name="T:AdminApi.Controllers.DeviceController">
             <summary>
             Administrator API for Campaigns
             </summary>
+        </member>
+        <member name="M:AdminApi.Controllers.DeviceController.#ctor(AdminApi.Service.ActivationService)">
+            <summary>
+            DI Constructor
+            </summary>
+            <param name="activationService"></param>
         </member>
         <member name="M:AdminApi.Controllers.DeviceController.Get">
             <summary>
@@ -46,9 +100,9 @@
             <response code="200">Success</response>
             <response code="400">Bad Request</response>
         </member>
-        <member name="M:AdminApi.Controllers.DeviceController.Disable(System.String,System.Boolean,System.String)">
+        <member name="M:AdminApi.Controllers.DeviceController.Enabled(System.String,System.Boolean,System.String)">
             <summary>
-            disable a device
+            enable/disable a device's ability to connect to IotHub
             </summary>
             <param name="id">Device Id</param>
             <param name="enabled">desired state of device</param>
@@ -68,6 +122,46 @@
             <response code="200">Success</response>
             <response code="400">Bad Request</response>
             <response code="404">Not Found</response>
+        </member>
+        <member name="T:AdminApi.Service.ActivationService">
+            <summary>
+            Handles activation records
+            </summary>
+        </member>
+        <member name="M:AdminApi.Service.ActivationService.Create(System.String)">
+            <summary>
+            Create a new activation record for a device
+            </summary>
+            <param name="deviceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AdminApi.Service.ActivationService.Create(Microsoft.Azure.Devices.Device)">
+            <summary>
+            Create a new activation record for a device
+            </summary>
+            <param name="device"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AdminApi.Service.ActivationService.GetAllActivationsForDevice(System.String)">
+            <summary>
+            get all activation records for a device
+            </summary>
+            <param name="deviceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AdminApi.Service.ActivationService.GetActivationById(System.String)">
+            <summary>
+            get specific activation record
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AdminApi.Service.ActivationService.SetEnabled(System.String,System.Boolean,System.String)">
+            <summary>
+            set enabled state
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

@@ -11,14 +11,11 @@ namespace AdminApi.Models
     {
         [JsonProperty(PropertyName = "id")]
         public string id { get; set; }
-        public string code { get; set; }
+        public string deviceId { get; set; }
+        public string hostName { get; set; }
+        public string key { get; set; }
         public bool enabled { get; set; }
-        public string HostName { get; set; }
-        public string Key { get; set; }
-
-
-        //"HostName=iotinsiderlab-nathan.azure-devices.net;DeviceId=nathan-laptop;SharedAccessKey=s9uO1xwyjg8CtksnajhATUInKDGyhmFW08pbFI7mPhs=";
-
+        public string reason { get; set; }
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
