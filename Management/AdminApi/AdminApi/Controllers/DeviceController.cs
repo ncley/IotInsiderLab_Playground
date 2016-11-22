@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AdminApi.Models;
+using AdminApi.Service;
 using Microsoft.Azure.Devices;
 using Microsoft.Azure.Documents.Client;
 using Newtonsoft.Json;
@@ -20,11 +21,10 @@ namespace AdminApi.Controllers
     /// </summary>
     public class DeviceController : ApiController
     {
+        private readonly ActivationService _activationService;
         readonly string iotHubConnectionString = ConfigurationManager.AppSettings["iothub_connection"];
-        readonly string iotHubHostName = ConfigurationManager.AppSettings["iothub_hostname"];
-        readonly string docDbUri = ConfigurationManager.AppSettings["docdb_uri"];
-        readonly string docDbKey = ConfigurationManager.AppSettings["docdb_key"];
-        RegistryManager registryManager;
+        
+//        RegistryManager registryManager;
         public class FooMsg
         {
             public string deviceid { get; set; }
@@ -96,6 +96,12 @@ namespace AdminApi.Controllers
         //            Console.WriteLine("Devices in Redmond43 using cellular network: {0}", string.Join(", ", twinsInRedmond43UsingCellular.Select(t => t.DeviceId)));
         //        }
 
+        
+        public DeviceController(ActivationService activationService)
+        {
+            _activationService = activationService;
+        }
+
         #region device
         /// <summary>
         /// Get all Devices
@@ -103,11 +109,10 @@ namespace AdminApi.Controllers
         /// <response code="200">Success</response>
         [Route("api/device")]
         [HttpGet]
-        [SwaggerOperation("GetAll")]
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(IEnumerable<Device>))]
         public async Task<IHttpActionResult> Get()
         {
-            registryManager = RegistryManager.CreateFromConnectionString(iotHubConnectionString);
+            var registryManager = RegistryManager.CreateFromConnectionString(iotHubConnectionString);
             return Ok(await registryManager.GetDevicesAsync(1000).ConfigureAwait(false));
         }
 
@@ -120,7 +125,6 @@ namespace AdminApi.Controllers
         /// <response code="404">Not Found</response>
         [Route("api/device/{id}", Name = "GetDeviceByID")]
         [HttpGet]
-        [SwaggerOperation("GetDeviceByID")]
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Device))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
         [SwaggerResponse(HttpStatusCode.BadRequest)]
@@ -131,7 +135,7 @@ namespace AdminApi.Controllers
                 return BadRequest();
             }
 
-            registryManager = RegistryManager.CreateFromConnectionString(iotHubConnectionString);
+            var registryManager = RegistryManager.CreateFromConnectionString(iotHubConnectionString);
             var device = await registryManager.GetDeviceAsync(id).ConfigureAwait(false);
             if (string.IsNullOrEmpty(device?.Id))
                 return NotFound();
@@ -160,23 +164,25 @@ namespace AdminApi.Controllers
             }
 
             //create device in iot hub registry
-            registryManager = RegistryManager.CreateFromConnectionString(iotHubConnectionString);
+            var registryManager = RegistryManager.CreateFromConnectionString(iotHubConnectionString);
             var device = await registryManager.AddDeviceAsync(new Device(id)).ConfigureAwait(false);
 
-            //create an activation record in document db
-            var activation = new Activation()
-            {
-                id = id,
-                enabled = true,
-                code = Guid.NewGuid().ToString(),
-                HostName = iotHubHostName,
-                Key = device.Authentication.SymmetricKey.PrimaryKey
-            };
+            var activation = await _activationService.Create(id);
 
-            var docDbClient = new DocumentClient(new Uri(docDbUri), docDbKey);
-//            var database = await docDbClient.ReadDatabaseAsync(UriFactory.CreateDatabaseUri("manage"));
-//            var collection = await docDbClient.ReadDocumentCollectionAsync(UriFactory.CreateDocumentCollectionUri("manage", "activation"));
-            var document = await docDbClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri("manage", "activation"), activation).ConfigureAwait(false);
+//            //create an activation record in document db
+//            var activation = new Activation()
+//            {
+//                id = id,
+//                enabled = true,
+//                code = Guid.NewGuid().ToString(),
+//                HostName = iotHubHostName,
+//                Key = device.Authentication.SymmetricKey.PrimaryKey
+//            };
+//
+//            var docDbClient = new DocumentClient(new Uri(docDbUri), docDbKey);
+////            var database = await docDbClient.ReadDatabaseAsync(UriFactory.CreateDatabaseUri("manage"));
+////            var collection = await docDbClient.ReadDocumentCollectionAsync(UriFactory.CreateDocumentCollectionUri("manage", "activation"));
+//            var document = await docDbClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri("manage", "activation"), activation).ConfigureAwait(false);
 
             return CreatedAtRoute("GetDeviceById", new { id }, activation);
         }
@@ -199,7 +205,7 @@ namespace AdminApi.Controllers
             if (string.IsNullOrEmpty(id))
                 return BadRequest();
 
-            registryManager = RegistryManager.CreateFromConnectionString(iotHubConnectionString);
+            var registryManager = RegistryManager.CreateFromConnectionString(iotHubConnectionString);
             await registryManager.RemoveDeviceAsync(id).ConfigureAwait(false);
             return Ok();
         }
@@ -228,7 +234,7 @@ namespace AdminApi.Controllers
                 return BadRequest();
             }
 
-            registryManager = RegistryManager.CreateFromConnectionString(iotHubConnectionString);
+            var registryManager = RegistryManager.CreateFromConnectionString(iotHubConnectionString);
             var device = await registryManager.GetDeviceAsync(id).ConfigureAwait(false);
             if (string.IsNullOrEmpty(device?.Id))
                 return NotFound();
@@ -261,7 +267,7 @@ namespace AdminApi.Controllers
                 return BadRequest();
             }
 
-            registryManager = RegistryManager.CreateFromConnectionString(iotHubConnectionString);
+            var registryManager = RegistryManager.CreateFromConnectionString(iotHubConnectionString);
             var twin = await registryManager.GetTwinAsync(id).ConfigureAwait(false);
             if (string.IsNullOrEmpty(twin?.DeviceId))
                 return NotFound();
