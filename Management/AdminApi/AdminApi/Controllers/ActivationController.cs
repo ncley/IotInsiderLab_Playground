@@ -47,7 +47,7 @@ namespace AdminApi.Controllers
             }
 
             id = id.ToLower();
-            return Ok(_activationService.GetActivationById(id));
+            return Ok(await _activationService.GetActivationById(id).ConfigureAwait(false));
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace AdminApi.Controllers
             }
 
             deviceId = deviceId.ToLower();
-            return Ok(_activationService.GetAllActivationsForDevice(deviceId));
+            return Ok(await _activationService.GetAllActivationsForDevice(deviceId).ConfigureAwait(false));
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace AdminApi.Controllers
             }
 
             deviceId = deviceId.ToLower();
-            return Ok(await _activationService.Create(deviceId));
+            return Ok(await _activationService.Create(deviceId).ConfigureAwait(false));
         }
     }
 }
