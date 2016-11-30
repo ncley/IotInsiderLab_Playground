@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -10,6 +9,7 @@ using AdminApi.Models;
 using Microsoft.Azure.Devices;
 using Microsoft.Azure.Devices.Common.Exceptions;
 using Microsoft.Azure.Documents.Client;
+using Microsoft.Azure.Documents.Linq;
 
 namespace AdminApi.Service
 {
@@ -25,6 +25,20 @@ namespace AdminApi.Service
         
         private Uri ActivationDocumentCollectionUri => UriFactory.CreateDocumentCollectionUri("manage", "activation");
 
+
+        private static async Task<IEnumerable<T>> QueryAsync<T>(IQueryable<T> query)
+        {
+            var docQuery = query.AsDocumentQuery();
+            var batches = new List<IEnumerable<T>>();
+            do
+            {
+                var batch = await docQuery.ExecuteNextAsync<T>();
+                batches.Add(batch);
+            }
+            while (docQuery.HasMoreResults);
+            var docs = batches.SelectMany(b => b);
+            return docs;
+        }
 
         /// <summary>
         /// Create a new activation record for a device
@@ -89,8 +103,8 @@ namespace AdminApi.Service
 
             deviceId = deviceId.ToLower();
             var docDbClient = new DocumentClient(new Uri(docDbUri), docDbKey);
-            var activations = await docDbClient.CreateDocumentQuery<Activation>(ActivationDocumentCollectionUri)
-                .Where(item => item.deviceId == deviceId).ToListAsync().ConfigureAwait(false);
+            var activations = await QueryAsync(docDbClient.CreateDocumentQuery<Activation>(ActivationDocumentCollectionUri)
+                .Where(item => item.deviceId == deviceId)).ConfigureAwait(false);
 
             return activations;
         }
@@ -109,9 +123,9 @@ namespace AdminApi.Service
 
             id = id.ToLower();
             var docDbClient = new DocumentClient(new Uri(docDbUri), docDbKey);
-            var activation = await docDbClient.CreateDocumentQuery<Activation>(ActivationDocumentCollectionUri)
-                .Where(item => item.id == id).FirstOrDefaultAsync().ConfigureAwait(false);
-            return activation;
+            var activation = await QueryAsync(docDbClient.CreateDocumentQuery<Activation>(ActivationDocumentCollectionUri)
+                .Where(item => item.id == id)).ConfigureAwait(false);
+            return activation.FirstOrDefault();
         }
 
         /// <summary>
@@ -128,8 +142,8 @@ namespace AdminApi.Service
 
             id = id.ToLower();
             var docDbClient = new DocumentClient(new Uri(docDbUri), docDbKey);
-            var activation = await docDbClient.CreateDocumentQuery<Activation>(ActivationDocumentCollectionUri)
-                .Where(item => item.id == id).FirstOrDefaultAsync().ConfigureAwait(false);
+            var activation = (await QueryAsync(docDbClient.CreateDocumentQuery<Activation>(ActivationDocumentCollectionUri)
+                .Where(item => item.id == id)).ConfigureAwait(false)).FirstOrDefault();
 
             if(null == activation)
                 throw new InvalidOperationException("activation record not found");
