@@ -40,6 +40,7 @@ namespace AdminApi.Controllers
         /// <response code="200">Success</response>
         [Route("api/device")]
         [HttpGet]
+        [SwaggerOperation("GetAllDevices")]
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(IEnumerable<Device>))]
         public async Task<IHttpActionResult> Get()
         {
@@ -56,6 +57,7 @@ namespace AdminApi.Controllers
         /// <response code="404">Not Found</response>
         [Route("api/device/{id}", Name = "GetDeviceByID")]
         [HttpGet]
+        [SwaggerOperation("GetDeviceById")]
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Device))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
         [SwaggerResponse(HttpStatusCode.BadRequest)]
@@ -161,6 +163,35 @@ namespace AdminApi.Controllers
 
             return Ok(device);
         }
+
+        /// <summary>
+        /// Send a message to a device
+        /// </summary>
+        /// <param name="id">Device Id</param>
+        /// <param name="messageBody">message to send</param>
+        /// <remarks>
+        /// Id field is required
+        /// </remarks>
+        /// <response code="201">Created</response>
+        /// <response code="400">Bad Request</response>
+        [HttpPost]
+        [Route("api/device/{id}/send")]
+        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
+        public async Task<IHttpActionResult> SendMessageToDevice(string id, [FromBody]string messageBody)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest();
+            }
+            id = id.ToLower();
+            var serviceClient = ServiceClient.CreateFromConnectionString(iotHubConnectionString);
+            var commandMessage = new Message(Encoding.ASCII.GetBytes(messageBody));
+            await serviceClient.SendAsync(id, commandMessage);
+
+            return Ok();
+        }
+
         #endregion
         #region twin
         /// <summary>

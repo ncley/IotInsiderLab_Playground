@@ -114,6 +114,18 @@
             <response code="400">Bad Request</response>
             <response code="404">Not Found</response>
         </member>
+        <member name="M:AdminApi.Controllers.DeviceController.SendMessageToDevice(System.String,System.String)">
+            <summary>
+            Send a message to a device
+            </summary>
+            <param name="id">Device Id</param>
+            <param name="messageBody">message to send</param>
+            <remarks>
+            Id field is required
+            </remarks>
+            <response code="201">Created</response>
+            <response code="400">Bad Request</response>
+        </member>
         <member name="M:AdminApi.Controllers.DeviceController.GetTwin(System.String)">
             <summary>
             Get Device Twin
