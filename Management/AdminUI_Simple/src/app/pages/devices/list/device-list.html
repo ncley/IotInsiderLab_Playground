@@ -1,0 +1,21 @@
+<div class="task-device-container">
+  
+  <input type="text" value="" class="form-control task-device" placeholder="To add a new device type the name here and hit enter" 
+      (keyup)="addItem($event)" [(ngModel)]="newItemText"/>
+  <i (click)="addItem($event)" class="add-item-icon ion-plus-round" title="Add New Device"></i>
+  <div class="box-shadow-border"></div>
+
+  <ul class="device-list">
+    <li *ngFor="let item of deviceList" [ngClass]="{checked: item.enabled, active: item.isActive}"
+        (mouseenter)="item.isActive=true" (mouseleave)="item.isActive=false">
+
+      <div class="blur-container"><div class="blur-box"></div></div>
+      <i class="mark"></i>
+      <label class="device-checkbox custom-checkbox custom-input-success">
+        <input type="checkbox" [ngModel]="item.enabled" (change)="toggleEnabled(item, $event)">
+        <span class="cut-with-dots">{{ item.deviceId }}</span>
+      </label>
+      <i class="remove-device ion-ios-close-empty" (click)="deleteItem(item)"></i>
+    </li>
+  </ul>
+</div>
