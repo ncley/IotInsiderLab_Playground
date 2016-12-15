@@ -86,20 +86,38 @@ a {
 .al-copy {
   float: left;
 }
+.al-footer-fade-left{
+    -webkit-animation-name: successDangerFadeLeft;
+    -webkit-animation-iteration-count: infinite;  
+    -webkit-animation-duration: 5s;
+}
+.al-footer-fade-right{
+    -webkit-animation-name: successDangerFadeRight;
+    -webkit-animation-iteration-count: infinite;  
+    -webkit-animation-duration: 5s;
+}
 
 .al-footer-right {
+  // &:hover{
+  //   i {
+  //     color:$danger;
+  //   }
+  // }
   float: right;
   margin-right: 12px;
   i {
     margin: 0 4px;
-    color: $danger;
+    color: $success-light;
     font-size: 12px;
+    // &:hover {
+    //   color: $danger;
+    // }
   }
   a {
     margin-left: 4px;
     color: $default-text;
     &:hover {
-      color: $danger;
+      color: $info-light;
     }
   }
 }
@@ -225,4 +243,16 @@ a {
 
 .text-center {
   text-align: center;
+}
+
+@-webkit-keyframes successDangerFadeLeft {  
+  0% { color: $danger; }
+  50% { color: $success; }
+  100% { color: $danger; }
+}
+
+@-webkit-keyframes successDangerFadeRight {  
+  0% { color: $success; }
+  50% { color: $danger; }
+  100% { color: $success; }
 }

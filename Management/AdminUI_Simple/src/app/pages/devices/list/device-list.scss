@@ -64,7 +64,7 @@ ul.device-list {
       }
       label.device-checkbox > span {
         &:before {
-          color: red;
+          color: $danger;
           content: '\f00d';
           margin-right: 20px;
           transition: margin-right 0.1s ease-out;
@@ -74,7 +74,7 @@ ul.device-list {
       }
       label.device-checkbox > input:checked + span:before {
         content: '\f00c';
-        color: green;
+        color: $success;
       }
     }
   }
@@ -168,7 +168,7 @@ label.device-checkbox {
         label.device-checkbox > span {
           &:before {
             position: absolute;
-            color: red;
+            color: $danger;
             content: '\f00d';
             float: none;
             margin-right: 6px;
@@ -179,7 +179,7 @@ label.device-checkbox {
           label.device-checkbox > span {
             &:before {
               content: '\f00c';
-              color: green;
+              color: $success;
             }
           }
         }
