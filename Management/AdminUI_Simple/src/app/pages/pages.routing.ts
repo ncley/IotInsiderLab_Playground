@@ -14,7 +14,7 @@ const routes: Routes = [
     path: 'pages',
     component: Pages,
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'devices', pathMatch: 'full' },
       { path: 'dashboard', loadChildren: () => System.import('./dashboard/dashboard.module') },
       { path: 'devices', loadChildren: () => System.import('./devices/devices.module') },
       // { path: 'editors', loadChildren: () => System.import('./editors/editors.module') },

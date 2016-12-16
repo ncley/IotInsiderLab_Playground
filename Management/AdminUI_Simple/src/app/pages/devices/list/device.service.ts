@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import { Http, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Subject }    from 'rxjs/Subject';
 import 'rxjs/Rx';
 import Dto = require("../../../model/IotDevice");
 
@@ -8,6 +9,11 @@ import Dto = require("../../../model/IotDevice");
 export class DeviceService {
 
     private BASE_URI: string = 'http://iotlab-activation-adminapi.azurewebsites.net/api';
+
+    // Observable  sources
+    private deviceDeletedSource = new Subject<any>();
+    // Observable  streams
+    deviceDeleted$ = this.deviceDeletedSource.asObservable();
 
     constructor(private $http: Http) {
     }
@@ -39,6 +45,14 @@ export class DeviceService {
             var result = <Dto.IotDevice>response.json();
             this.setDeviceEnabled(result);
             return result;
+        });
+    }
+
+    public deleteDevice = (deviceId:string):Observable<string> =>{
+        var url = this.BASE_URI + '/device/' + deviceId;
+        return this.$http.delete(url).map(response => {
+            this.deviceDeletedSource.next(deviceId);
+            return deviceId;
         });
     }
 

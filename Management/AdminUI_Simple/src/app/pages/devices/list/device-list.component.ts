@@ -20,6 +20,14 @@ export class DeviceList implements OnInit{
   ngOnInit()    { this.getData(); }
 
   constructor(private _baConfig:BaThemeConfigProvider, private _deviceService:DeviceService) {
+    _deviceService.deviceDeleted$.subscribe(deletedDeviceId => {
+        //find the device in the list and remove it
+        var index = this.deviceList.findIndex(item => item.deviceId == deletedDeviceId);
+        if (index > -1) {
+            this.deviceList.splice(index, 1);
+        }
+        this.deviceList = this.deviceList.splice(0);//so Angular will detect the change
+      });
   }
 
   addItem = ($event) => {

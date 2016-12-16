@@ -19,7 +19,10 @@ export class DeviceDetails {
   }
 
   delete= () => {
-    //TODO: code this
+    this._deviceService.deleteDevice(this.device.deviceId).subscribe(response =>{
+      this.device = null;
+    });
+
   }
 
  setEnabled = (newValue) => {
