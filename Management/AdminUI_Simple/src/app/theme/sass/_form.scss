@@ -640,7 +640,7 @@ label.custom-checkbox {
     position: relative;
     display: inline-block;
     margin: 0;
-    line-height: 16px;
+    line-height: 32px;
     font-weight: $font-light;
     cursor: pointer;
     padding-left: 22px;
@@ -649,7 +649,7 @@ label.custom-checkbox {
       cursor: pointer;
       font-family: fontAwesome;
       font-weight: $font-light;
-      font-size: 12px;
+      font-size: 14px;
       color: $content-text;
       content: "\a0";
       background-color: transparent;
@@ -657,7 +657,7 @@ label.custom-checkbox {
       border-radius: 0;
       display: inline-block;
       text-align: center;
-      height: 16px;
+      height: 32px;
       line-height: 14px;
       min-width: 16px;
       margin-right: 6px;

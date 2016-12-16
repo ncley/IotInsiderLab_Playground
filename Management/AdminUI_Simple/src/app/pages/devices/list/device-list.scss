@@ -16,7 +16,7 @@ ul.device-list {
     position: relative;
     border: 1px solid $input-border;
     cursor: grab;
-    height: 42px;
+    height: 50px;
     i.remove-device {
       position: absolute;
       cursor: pointer;
@@ -26,7 +26,7 @@ ul.device-list {
       transition: color 0.2s;
       color: rgba($input-border, 0.5);
       visibility: hidden;
-      line-height: 42px;
+      line-height: 50px;
       &:hover {
         color: $input-border;
       }
@@ -70,11 +70,13 @@ ul.device-list {
           transition: margin-right 0.1s ease-out;
           transition-delay: 0.2s;
           float: none;
+          font-size: 20px;
         }
       }
       label.device-checkbox > input:checked + span:before {
         content: '\f00c';
         color: $success;
+        font-size: 20px;
       }
     }
   }
@@ -83,11 +85,11 @@ ul.device-list {
 label.device-checkbox {
   width: 100%;
   padding-right: 25px;
-  min-height: 16px;
+  min-height: 50px;
   cursor: pointer;
   > span {
     white-space: nowrap;
-    height: 16px;
+    height: 50px;
     &:before {
       border: none;
       color: $help-text;
@@ -136,7 +138,7 @@ label.device-checkbox {
         font-weight: $font-light;
 
         .blur-container {
-          height: 40px;
+          height: 50px;
           position: absolute;
           width: calc(100% + 40px);;
           top: 0;
@@ -167,12 +169,13 @@ label.device-checkbox {
         }
         label.device-checkbox > span {
           &:before {
-            position: absolute;
+            position: relative;
             color: $danger;
             content: '\f00d';
             float: none;
-            margin-right: 6px;
+            margin-right: 20px;
             transition: none;
+            font-size: 20px;
           }
         }
         &.checked {
@@ -180,6 +183,7 @@ label.device-checkbox {
             &:before {
               content: '\f00c';
               color: $success;
+              font-size: 20px;
             }
           }
         }

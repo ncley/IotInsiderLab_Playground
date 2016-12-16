@@ -1,0 +1,27 @@
+@import '../../../theme/sass/conf/conf';
+
+  .device-details-row {
+    font-size: 20px;
+    padding: 20px 22px;
+    border-bottom: 1px solid $border-light;
+    // border-top: 1px solid $border-light;
+  }
+
+  .disabled{
+      color:$danger;
+  }
+
+$btn-icon-size: 34px;
+.btn-icon {
+  width: $btn-icon-size;
+  height: $btn-icon-size;
+  line-height: $btn-icon-size;
+  padding: 0;
+  text-align: center;
+}
+
+.btn-with-icon {
+  i {
+    margin-right: 10px;
+  }
+}

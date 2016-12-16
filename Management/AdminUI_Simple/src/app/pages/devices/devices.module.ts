@@ -6,7 +6,7 @@ import { NgaModule } from '../../theme/nga.module';
 import { Devices } from './devices.component';
 import { routing }       from './devices.routing';
 
-import { DeviceList } from './list';
+import { DeviceList, DeviceDetails } from './list';
 import { DeviceService } from './list/device.service';
 
 @NgModule({
@@ -18,6 +18,7 @@ import { DeviceService } from './list/device.service';
   ],
   declarations: [
     DeviceList,
+    DeviceDetails,
     Devices
   ],
   providers: [

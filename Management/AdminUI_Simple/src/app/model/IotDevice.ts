@@ -7,7 +7,8 @@ export class IotDevice {
         public status: string,
         public statusReason: string,
         public lastActivityTime: Date,
-        public enabled: boolean
+        public cloudToDeviceMessageCount: number,
+        public enabled: boolean,
          ) {
     }
 

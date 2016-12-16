@@ -14,7 +14,10 @@ export class DeviceService {
 
     private setDeviceEnabled(deviceInterface: Dto.IotDevice)
     {
-        deviceInterface.enabled = (deviceInterface.status.toLowerCase() == "enabled");
+        if(null != deviceInterface && null != deviceInterface.status)
+        {
+            deviceInterface.enabled = (deviceInterface.status.toLowerCase() == "enabled");
+        }
     }
 
     public getAllDevices=(): Observable<Dto.IotDevice[]> => {
