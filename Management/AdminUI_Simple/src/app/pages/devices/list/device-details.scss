@@ -1,9 +1,17 @@
 @import '../../../theme/sass/conf/conf';
 
+  .device-header-row {
+    font-size: 28px;
+    padding: 20px 22px;
+    border-bottom: 1px solid $border-light;
+    // border-top: 1px solid $border-light;
+    text-align: center;
+  }
+
   .device-details-row {
     font-size: 20px;
     padding: 20px 22px;
-    border-bottom: 1px solid $border-light;
+    //border-bottom: 1px solid $border-light;
     // border-top: 1px solid $border-light;
   }
 
