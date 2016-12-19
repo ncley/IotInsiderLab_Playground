@@ -13,7 +13,7 @@ import Dto = require("../../../model/IotDevice");
 })
 export class DeviceActivations {
   @Input()
-  public device:Dto.IotDevice;
+  public activations:Array<any>;
 
   constructor(private _baConfig:BaThemeConfigProvider, private _deviceService:DeviceService) {
   }

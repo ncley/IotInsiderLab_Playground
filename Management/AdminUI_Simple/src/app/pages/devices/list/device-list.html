@@ -1,5 +1,5 @@
 <div class="row">
-  <ba-card class="col-xs-4" title="" baCardClass="large-card with-scroll device-panel">
+  <ba-card class="col-xs-4" title="" baCardClass="large-card device-panel">
     <div class="task-device-container">
       <input type="text" value="" class="form-control task-device" placeholder="To add a new device type the name here and hit enter" 
           (keyup)="addItem($event)" [(ngModel)]="newItemText"/>
@@ -12,20 +12,18 @@
           <div class="blur-container"><div class="blur-box"></div></div>
           <i class="mark"></i>
           <label class="device-checkbox custom-checkbox custom-input-success">
-            <!--<input type="checkbox" [ngModel]="item.enabled" (change)="toggleEnabled(item, $event)">-->
             <input type="checkbox" [ngModel]="item.enabled"/>
             <span class="cut-with-dots">{{ item.deviceId }}</span>
           </label>
-          <!--<i class="remove-device ion-ios-close-empty" (click)="deleteItem(item)"></i>-->
         </li>
       </ul>
     </div>
   </ba-card>
-  <ba-card class="col-xs-4" baCardClass="xmedium-card device-panel">
+  <ba-card *ngIf="selectedDevice" class="col-xs-4" baCardClass="xmedium-card device-panel">
     <device-details [device]=selectedDevice></device-details>
   </ba-card>
-  <ba-card class="col-xs-4" baCardClass="xmedium-card device-panel">
-    <device-activations [device]=selectedDevice></device-activations>
+  <ba-card *ngIf="selectedDeviceActivationRecords" class="col-xs-4" baCardClass="xmedium-card device-panel">
+    <device-activations [activations]=selectedDeviceActivationRecords></device-activations>
   </ba-card>
 
 </div>

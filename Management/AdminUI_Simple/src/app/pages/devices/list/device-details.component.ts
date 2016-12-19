@@ -19,10 +19,11 @@ export class DeviceDetails {
   }
 
   delete= () => {
-    this._deviceService.deleteDevice(this.device.deviceId).subscribe(response =>{
-      this.device = null;
-    });
-
+    if (window.confirm('Are you sure you want to delete?')) {
+      this._deviceService.deleteDevice(this.device.deviceId).subscribe(response =>{
+        this.device = null;
+      });
+    }
   }
 
  setEnabled = (newValue) => {

@@ -1,8 +1,12 @@
 <div  class="row device-header-row">
   Activations
 </div>
-<div *ngIf="device">
-  <div  class="row device-details-row">
-    There are no activation records for this device
-  </div>
+<div *ngIf="activations">
+  <ul>
+    <li *ngFor="let item of activations">
+      <activation-details [activationRecord]="item"></activation-details>
+    </li>
+  </ul>
+
 </div>
+

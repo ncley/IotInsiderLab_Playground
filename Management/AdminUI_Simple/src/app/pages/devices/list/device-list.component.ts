@@ -16,6 +16,7 @@ export class DeviceList implements OnInit{
   public deviceList:Array<any>;
   public newItemText:string = '';
   public selectedDevice:any;
+  public selectedDeviceActivationRecords:Array<any>;
 
   ngOnInit()    { this.getData(); }
 
@@ -45,11 +46,20 @@ export class DeviceList implements OnInit{
 
   showDetails = (item) => {
     this.selectedDevice = item;
+    this.getActivationsForCurrentDevice();
   }
 
   getData = () => {
     this._deviceService.getAllDevices().subscribe(data => {
       this.deviceList = data;
     });
+  }
+
+  getActivationsForCurrentDevice = () => {
+    if(null != this.selectedDevice){
+      this._deviceService.getAllActivationRecordsForDevice(this.selectedDevice.deviceId).subscribe(data => {
+        this.selectedDeviceActivationRecords = data;
+      });
+    }
   }
 }

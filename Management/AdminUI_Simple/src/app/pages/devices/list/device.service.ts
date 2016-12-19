@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject }    from 'rxjs/Subject';
 import 'rxjs/Rx';
 import Dto = require("../../../model/IotDevice");
+import Dto1 = require("../../../model/Activation");
 
 @Injectable()
 export class DeviceService {
@@ -65,6 +66,13 @@ export class DeviceService {
             var result = <Dto.IotDevice>response.json();
             this.setDeviceEnabled(result);
             return result;
+        });
+    }
+
+    public getAllActivationRecordsForDevice=(deviceId:string): Observable<Dto1.Activation[]> => {
+        var url = this.BASE_URI + '/activation/device/' + deviceId;
+        return this.$http.get(url).map(response => {
+            return <Dto1.Activation[]>response.json();
         });
     }
 }

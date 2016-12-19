@@ -1,0 +1,64 @@
+<div *ngIf="activationRecord" class="row">
+  <div  class="row device-details-row">
+    <div class="col-xs-4">
+      ID
+    </div>
+    <div class="col-xs-8 text-right">
+      {{activationRecord?.id}}
+    </div>
+  </div>
+  <div  class="row device-details-row" >
+    <div class="col-xs-4">
+      Enabled
+    </div>
+    <div class="col-xs-8 text-right" [ngClass]="{disabled: !activationRecord?.enabled}">
+      {{activationRecord?.enabled}}
+    </div>
+  </div>
+  <div *ngIf="!activationRecord?.enabled" class="row device-details-row">
+    <div class="col-xs-4">
+      Reason Disabled
+    </div>
+    <div class="col-xs-8 text-right" [ngClass]="{disabled: !activationRecord?.enabled}">
+      {{activationRecord?.reason}}
+    </div>
+  </div>
+  <div *ngIf="!activationRecord?.enabled" class="row device-details-row">
+    <div class="col-xs-4">
+      Activation Date
+    </div>
+    <div class="col-xs-8 text-right">
+      {{activationRecord?.activatedDate}}
+    </div>
+  </div>
+  <div  class="row device-details-row">
+    <div class="col-xs-4">
+      Created Date
+    </div>
+    <div class="col-xs-8 text-right">
+      {{activationRecord?.createdDate}}
+    </div>
+  </div>
+  <div  class="row device-details-row">
+    <div class="col-xs-4">
+      Activation Code
+    </div>
+    <div class="col-xs-8 text-right">
+      {{activationRecord?.key}}
+    </div>
+  </div>
+  <div  class="row device-details-row">
+  </div>
+  <div  class="row device-details-row">
+    <div class="btn-group-example col-xs-4">
+      <div class="btn-group" role="group" aria-label="Enabled/Disable device message sending rights">
+        <button title="Allow device to send messages to IotHub" type="button" class="btn btn-raised btn-success" [attr.disabled]="activationRecord?.enabled ? 'true':null" (click)="setEnabled(true)">Enable</button>
+        <button title="Disallow device to send messages to IotHub" type="button" class="btn btn-raised btn-danger" [attr.disabled]="!activationRecord?.enabled ? 'true':null" (click)="setEnabled(false)">Disable</button>
+      </div>
+    </div>
+    <div class="col-xs-1 offset-xs-6">
+      <button title="Delete Device from IotHub registry" type="button" class="btn btn-danger btn-with-icon btn-raised" (click)="delete()"><i class="ion-nuclear"></i>Delete</button>
+    </div>
+    
+  </div>
+</div>
