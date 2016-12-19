@@ -22,8 +22,10 @@ namespace AdminApi.Service
         readonly string iotHubHostName = ConfigurationManager.AppSettings["iothub_hostname"];
         readonly string docDbUri = ConfigurationManager.AppSettings["docdb_uri"];
         readonly string docDbKey = ConfigurationManager.AppSettings["docdb_key"];
-        
-        private Uri ActivationDocumentCollectionUri => UriFactory.CreateDocumentCollectionUri("manage", "activation");
+
+        private const string databaseId = @"manage";
+        private const string documentCollectionId = @"activation";
+        private Uri ActivationDocumentCollectionUri => UriFactory.CreateDocumentCollectionUri(databaseId, documentCollectionId);
 
 
         private static async Task<IEnumerable<T>> QueryAsync<T>(IQueryable<T> query)
@@ -80,7 +82,8 @@ namespace AdminApi.Service
                 deviceId = device.Id.ToLower(),
                 enabled = true,
                 hostName = iotHubHostName,
-                key = device.Authentication.SymmetricKey.PrimaryKey
+                key = device.Authentication.SymmetricKey.PrimaryKey,
+                createdDate = DateTime.UtcNow
             };
 
             var docDbClient = new DocumentClient(new Uri(docDbUri), docDbKey);
@@ -150,8 +153,59 @@ namespace AdminApi.Service
 
             activation.enabled = enabled;
             activation.reason = reason;
+            if (!activation.enabled)
+            {
+                activation.activatedDate = DateTime.UtcNow;
+            }
+            else
+            {
+                activation.activatedDate = null;
+            }
+
             var response = await docDbClient.UpsertDocumentAsync(ActivationDocumentCollectionUri, activation).ConfigureAwait(false);
             return activation;
+        }
+
+        /// <summary>
+        /// delete an activation record
+        /// </summary>
+        /// <param name="activationId"></param>
+        /// <returns></returns>
+        public async Task Delete(string activationId)
+        {
+            if (string.IsNullOrEmpty(activationId))
+            {
+                throw new InvalidOperationException("invalid id");
+            }
+
+            activationId = activationId.ToLower();
+            var docDbClient = new DocumentClient(new Uri(docDbUri), docDbKey);
+            var response = await docDbClient.DeleteDocumentAsync(UriFactory.CreateDocumentUri(databaseId, documentCollectionId, activationId)).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// delete all activation records for a device
+        /// </summary>
+        /// <param name="deviceId"></param>
+        /// <returns></returns>
+        public async Task DeleteAllActivationsForDevice(string deviceId)
+        {
+            if (string.IsNullOrEmpty(deviceId))
+            {
+                throw new InvalidOperationException("invalid id");
+            }
+
+            deviceId = deviceId.ToLower();
+            var docDbClient = new DocumentClient(new Uri(docDbUri), docDbKey);
+            var activations = (await QueryAsync(docDbClient.CreateDocumentQuery<Activation>(ActivationDocumentCollectionUri)
+                .Where(item => item.deviceId == deviceId)).ConfigureAwait(false));
+            foreach (var activation in activations)
+            {
+                var response = await docDbClient.DeleteDocumentAsync(UriFactory.CreateDocumentUri(databaseId, documentCollectionId, activation.id)).ConfigureAwait(false);
+            }
+    
+
+            //var response = await docDbClient.DeleteDocumentAsync(UriFactory.CreateDocumentUri(databaseId, documentCollectionId, activationId)).ConfigureAwait(false);
         }
     }
 }

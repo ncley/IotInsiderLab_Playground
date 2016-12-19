@@ -16,6 +16,8 @@ namespace AdminApi.Models
         public string key { get; set; }
         public bool enabled { get; set; }
         public string reason { get; set; }
+        public DateTime? createdDate { get; set; }
+        public DateTime? activatedDate { get; set; }
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);

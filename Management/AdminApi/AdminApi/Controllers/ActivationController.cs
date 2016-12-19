@@ -120,5 +120,51 @@ namespace AdminApi.Controllers
             deviceId = deviceId.ToLower();
             return Ok(await _activationService.Create(deviceId).ConfigureAwait(false));
         }
+
+        /// <summary>
+        /// Delete an activation record
+        /// </summary>
+        /// <param name="id">unique identifier for an activation record</param>
+        /// <remarks>
+        /// Id must be valid
+        /// </remarks>
+        /// <response code="200">Success</response>
+        /// <response code="400">Bad Request</response>
+        [HttpDelete]
+        [Route("api/activation/{id}")]
+        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
+        public async Task<IHttpActionResult> Delete(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return BadRequest();
+
+            id = id.ToLower();
+            await _activationService.Delete(id).ConfigureAwait(false);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Delete all activation records for a device
+        /// </summary>
+        /// <param name="deviceId">unique identifier for a device</param>
+        /// <remarks>
+        /// Id must be valid
+        /// </remarks>
+        /// <response code="200">Success</response>
+        /// <response code="400">Bad Request</response>
+        [HttpDelete]
+        [Route("api/activation/device/{deviceId}")]
+        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
+        public async Task<IHttpActionResult> DeleteAllActivationsForDevice(string deviceId)
+        {
+            if (string.IsNullOrEmpty(deviceId))
+                return BadRequest();
+
+            deviceId = deviceId.ToLower();
+            await _activationService.DeleteAllActivationsForDevice(deviceId).ConfigureAwait(false);
+            return Ok();
+        }
     }
 }
