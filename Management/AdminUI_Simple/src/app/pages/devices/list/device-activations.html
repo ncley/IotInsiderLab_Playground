@@ -1,12 +1,7 @@
 <div  class="row device-header-row">
   Activations
 </div>
-<div *ngIf="activations">
-  <ul>
-    <li *ngFor="let item of activations">
-      <activation-details [activationRecord]="item"></activation-details>
-    </li>
-  </ul>
-
+<div *ngFor="let item of activations">
+  <activation-details [activationRecord]="item"></activation-details>
 </div>
 

@@ -1,6 +1,6 @@
-import {Component, ViewEncapsulation, Input, ChangeDetectionStrategy} from '@angular/core';
+import {Component, ViewEncapsulation, Input, ChangeDetectionStrategy, ViewChild} from '@angular/core';
 import {BaThemeConfigProvider} from '../../../theme';
-
+import {ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 import {DeviceService} from './device.service';
 import Dto = require("../../../model/IotDevice");
 
@@ -14,6 +14,9 @@ import Dto = require("../../../model/IotDevice");
 export class DeviceDetails {
   @Input()
   public device:Dto.IotDevice;
+
+  @ViewChild('msgModal') msgModal: ModalDirective;
+  public messageToSend:string;
 
   constructor(private _baConfig:BaThemeConfigProvider, private _deviceService:DeviceService) {
   }
@@ -29,10 +32,23 @@ export class DeviceDetails {
  setEnabled = (newValue) => {
     var reason = !newValue ? 'admin console' : null;
     this._deviceService.setDeviceState(this.device.deviceId, newValue, reason).subscribe(data =>{
-      //TODO: don't subscribe like this, get the change at the whol device level from the same event that the list will also subscribe to from the service
+      //TODO: don't subscribe like this, get the change at the whole device level from the same event that the list will also subscribe to from the service???
       this.device.enabled = data.enabled;
       this.device.status = data.status;
       this.device.statusReason = data.statusReason; 
     });
+  }
+
+   sendMessage = () => {
+    if(null != this.messageToSend && '' != this.messageToSend){
+      this.msgModal.hide();
+      this._deviceService.sendMessageToDevice(this.messageToSend, this.device.deviceId).subscribe(data =>{
+        //TODO: handle response?
+        this.messageToSend = null;
+      });
+    }
+    else{
+      //TODO: tell user they need to input something
+    }
   }
 }

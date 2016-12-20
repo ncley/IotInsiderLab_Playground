@@ -5,7 +5,7 @@ import { NgaModule } from '../../theme/nga.module';
 
 import { Devices } from './devices.component';
 import { routing }       from './devices.routing';
-
+import { ModalModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { DeviceList, DeviceDetails, DeviceActivations, ActivationDetails } from './list';
 import { DeviceService } from './list/device.service';
 
@@ -14,6 +14,7 @@ import { DeviceService } from './list/device.service';
     CommonModule,
     FormsModule,
     NgaModule,
+    ModalModule,
     routing
   ],
   declarations: [

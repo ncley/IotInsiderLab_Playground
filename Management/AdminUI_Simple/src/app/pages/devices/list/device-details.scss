@@ -3,7 +3,7 @@
   .device-header-row {
     font-size: 28px;
     padding: 20px 22px;
-    border-bottom: 1px solid $border-light;
+    border-bottom: 2px solid $border-light;
     // border-top: 1px solid $border-light;
     text-align: center;
   }
@@ -32,4 +32,41 @@ $btn-icon-size: 34px;
   i {
     margin-right: 10px;
   }
+}
+
+  .device-activation-row {
+    font-size: 16px;
+    padding: 20px 22px;
+ }
+
+  .device-activation-group {
+    border-top: 1px solid $border-light;
+}
+
+.modal {
+  padding-top: 300px;
+
+  .modal-content {
+    color: $dropdown-text;
+
+    .modal-header {
+      border: none;
+    }
+
+    .modal-footer {
+      border: none;
+    }
+
+    .close {
+      outline: none;
+    }
+  }
+}
+
+.modal-buttons .btn {
+  margin-right: 20px;
+}
+
+.message-input{
+  width:100%;
 }

@@ -19,9 +19,9 @@
       </ul>
     </div>
   </ba-card>
-  <ba-card *ngIf="selectedDevice" class="col-xs-4" baCardClass="xmedium-card device-panel">
-    <device-details [device]=selectedDevice></device-details>
-  </ba-card>
+  
+  <device-details [device]=selectedDevice></device-details>
+  
   <ba-card *ngIf="selectedDeviceActivationRecords" class="col-xs-4" baCardClass="xmedium-card device-panel">
     <device-activations [activations]=selectedDeviceActivationRecords></device-activations>
   </ba-card>

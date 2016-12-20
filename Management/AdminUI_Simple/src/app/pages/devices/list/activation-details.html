@@ -1,13 +1,13 @@
-<div *ngIf="activationRecord" class="row">
-  <div  class="row device-details-row">
+<div *ngIf="activationRecord" class="row device-activation-group">
+  <div  class="row device-activation-row">
     <div class="col-xs-4">
-      ID
+      Activation Code
     </div>
     <div class="col-xs-8 text-right">
       {{activationRecord?.id}}
     </div>
   </div>
-  <div  class="row device-details-row" >
+  <div  class="row device-activation-row" >
     <div class="col-xs-4">
       Enabled
     </div>
@@ -15,7 +15,7 @@
       {{activationRecord?.enabled}}
     </div>
   </div>
-  <div *ngIf="!activationRecord?.enabled" class="row device-details-row">
+  <div *ngIf="!activationRecord?.enabled" class="row device-activation-row">
     <div class="col-xs-4">
       Reason Disabled
     </div>
@@ -23,7 +23,7 @@
       {{activationRecord?.reason}}
     </div>
   </div>
-  <div *ngIf="!activationRecord?.enabled" class="row device-details-row">
+  <div *ngIf="!activationRecord?.enabled" class="row device-activation-row">
     <div class="col-xs-4">
       Activation Date
     </div>
@@ -31,7 +31,7 @@
       {{activationRecord?.activatedDate}}
     </div>
   </div>
-  <div  class="row device-details-row">
+  <div  class="row device-activation-row">
     <div class="col-xs-4">
       Created Date
     </div>
@@ -39,17 +39,17 @@
       {{activationRecord?.createdDate}}
     </div>
   </div>
-  <div  class="row device-details-row">
+  <div  class="row device-activation-row">
     <div class="col-xs-4">
-      Activation Code
+      IotHub Token
     </div>
     <div class="col-xs-8 text-right">
       {{activationRecord?.key}}
     </div>
   </div>
-  <div  class="row device-details-row">
-  </div>
-  <div  class="row device-details-row">
+  <!--<div  class="row device-activation-row">
+  </div>-->
+  <div  class="row device-activation-row">
     <div class="btn-group-example col-xs-4">
       <div class="btn-group" role="group" aria-label="Enabled/Disable device message sending rights">
         <button title="Allow device to send messages to IotHub" type="button" class="btn btn-raised btn-success" [attr.disabled]="activationRecord?.enabled ? 'true':null" (click)="setEnabled(true)">Enable</button>
