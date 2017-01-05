@@ -29,6 +29,12 @@ export class DeviceList implements OnInit{
         }
         this.deviceList = this.deviceList.splice(0);//so Angular will detect the change
       });
+
+    _deviceService.activationAdded$.subscribe(newRecord => {
+        var index = this.selectedDeviceActivationRecords.push(newRecord);
+        this.selectedDeviceActivationRecords = this.selectedDeviceActivationRecords.splice(0);//so Angular will detect the change
+      });
+
   }
 
   addItem = ($event) => {

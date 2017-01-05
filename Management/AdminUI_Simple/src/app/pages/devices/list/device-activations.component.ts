@@ -16,5 +16,14 @@ export class DeviceActivations {
   public activations:Array<any>;
 
   constructor(private _baConfig:BaThemeConfigProvider, private _deviceService:DeviceService) {
+    _deviceService.activationDeleted$.subscribe(deletedActivationId => {
+        //find the device in the list and remove it
+        var index = this.activations.findIndex(item => item.id == deletedActivationId);
+        if (index > -1) {
+            this.activations.splice(index, 1);
+        }
+        this.activations = this.activations.splice(0);//so Angular will detect the change
+      });
+
   }
 }

@@ -60,13 +60,15 @@
           <button title="Disallow device to send messages to IotHub" type="button" class="btn btn-raised btn-danger" [attr.disabled]="!device?.enabled ? 'true':null" (click)="setEnabled(false)">Disable</button>
         </div>
       </div>
-      <div class="col-xs-1 offset-xs-1">
-        <button class="btn btn-success" (click)="msgModal.show()">Send Message</button>
+      <div class="col-xs-3">
+        <button class="btn btn-success btn-raised" (click)="msgModal.show()">Send Message</button>
       </div>
-      <div class="col-xs-1 offset-xs-4">
+      <div class="col-xs-2">
+        <button class="btn btn-info btn-raised" (click)="addActivation()">Add Activation</button>
+      </div>
+      <div class="col-xs-1 offset-xs-1">
         <button title="Delete Device from IotHub registry" type="button" class="btn btn-danger btn-with-icon btn-raised" (click)="delete()"><i class="ion-nuclear"></i>Delete</button>
       </div>
-      
     </div>
   </div>
 </ba-card>

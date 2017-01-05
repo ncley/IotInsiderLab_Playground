@@ -1,18 +1,16 @@
 @import '../../../theme/sass/conf/conf';
 
   .device-header-row {
-    font-size: 28px;
-    padding: 20px 22px;
+    font-size: 26px;
+    padding-bottom:10px;
     border-bottom: 2px solid $border-light;
     // border-top: 1px solid $border-light;
     text-align: center;
   }
 
   .device-details-row {
-    font-size: 20px;
-    padding: 20px 22px;
-    //border-bottom: 1px solid $border-light;
-    // border-top: 1px solid $border-light;
+    font-size: 16px;
+    padding-top:10px;
   }
 
   .disabled{
@@ -34,9 +32,9 @@ $btn-icon-size: 34px;
   }
 }
 
-  .device-activation-row {
+.device-activation-row {
     font-size: 16px;
-    padding: 20px 22px;
+    padding-top:10px;
  }
 
   .device-activation-group {

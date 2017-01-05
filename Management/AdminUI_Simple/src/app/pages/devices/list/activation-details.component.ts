@@ -20,19 +20,18 @@ export class ActivationDetails {
 
   delete= () => {
     if (window.confirm('Are you sure you want to delete?')) {
-      // this._deviceService.deleteDevice(this.activationRecord.deviceId).subscribe(response =>{
-      //   this.activationRecord = null;
-      // });
+      this._deviceService.deleteActivation(this.activationRecord.id).subscribe(response =>{
+        this.activationRecord = null;
+      });
     }
   }
 
- setEnabled = (newValue) => {
-     var reason = !newValue ? 'admin console' : null;
-    // this._deviceService.setDeviceState(this.activationRecord.deviceId, newValue, reason).subscribe(data =>{
-    //   //TODO: don't subscribe like this, get the change at the whol device level from the same event that the list will also subscribe to from the service
-    //   this.activationRecord.enabled = data.enabled;
-    //   this.activationRecord.status = data.status;
-    //   this.activationRecord.statusReason = data.statusReason; 
-    // });
+  setEnabled = (newValue) => {
+    var reason = !newValue ? 'admin console' : null;
+    this._deviceService.setActivationState(this.activationRecord.id, newValue, reason).subscribe(data =>{
+      this.activationRecord.enabled = data.enabled;
+      this.activationRecord.reason = data.reason;
+      this.activationRecord.activatedDate = data.activatedDate;
+    });
   }
 }

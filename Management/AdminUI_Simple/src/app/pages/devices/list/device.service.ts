@@ -13,8 +13,12 @@ export class DeviceService {
 
     // Observable  sources
     private deviceDeletedSource = new Subject<any>();
+    private activationDeletedSource = new Subject<any>();
+    private activationAddedSource = new Subject<any>();
     // Observable  streams
     deviceDeleted$ = this.deviceDeletedSource.asObservable();
+    activationDeleted$ = this.activationDeletedSource.asObservable();
+    activationAdded$ = this.activationAddedSource.asObservable();
 
     constructor(private $http: Http) {
     }
@@ -69,13 +73,6 @@ export class DeviceService {
         });
     }
 
-    public getAllActivationRecordsForDevice=(deviceId:string): Observable<Dto1.Activation[]> => {
-        var url = this.BASE_URI + '/activation/device/' + deviceId;
-        return this.$http.get(url).map(response => {
-            return <Dto1.Activation[]>response.json();
-        });
-    }
-
     public sendMessageToDevice = (message:string, deviceId:string):Observable<string> =>{
         var url = this.BASE_URI + '/device/' + deviceId + "/send";
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -85,4 +82,37 @@ export class DeviceService {
         });
     }
 
+    public getAllActivationRecordsForDevice=(deviceId:string): Observable<Dto1.Activation[]> => {
+        var url = this.BASE_URI + '/activation/device/' + deviceId;
+        return this.$http.get(url).map(response => {
+            return <Dto1.Activation[]>response.json();
+        });
+    }
+
+    public deleteActivation = (activationId:string):Observable<string> =>{
+        var url = this.BASE_URI + '/activation/' + activationId;
+        return this.$http.delete(url).map(response => {
+            this.activationDeletedSource.next(activationId);
+            return activationId;
+        });
+    }
+
+    public setActivationState= (activationId:string, enabled: boolean, reason: string): Observable<Dto1.Activation> =>{
+        var url = this.BASE_URI + '/activation/' + activationId + '/enabled';
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('enabled', enabled.toString());
+        params.set('reason', reason);
+        return this.$http.put(url,{}, { search: params }).map(response => {
+            return <Dto1.Activation>response.json();
+        });
+    }
+
+    public addActivationForDevice=(deviceId:string): Observable<Dto1.Activation> => {
+        var url = this.BASE_URI + '/activation/device/' + deviceId;
+        return this.$http.post(url,'').map(response => {
+            var activation =  <Dto1.Activation>response.json();
+            this.activationAddedSource.next(activation);
+            return activation;
+        });
+    }
 }

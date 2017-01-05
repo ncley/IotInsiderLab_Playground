@@ -29,6 +29,13 @@ export class DeviceDetails {
     }
   }
 
+  addActivation= () => {
+      this._deviceService.addActivationForDevice(this.device.deviceId).subscribe(data =>{
+        //TODO: how do we tell parent about this??
+        //this.device = null;
+      });
+  }
+
  setEnabled = (newValue) => {
     var reason = !newValue ? 'admin console' : null;
     this._deviceService.setDeviceState(this.device.deviceId, newValue, reason).subscribe(data =>{
