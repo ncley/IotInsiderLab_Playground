@@ -1,40 +1,19 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace IotHubClient
 {
-    //    public class DataHoistRunInfoMessage
-    //    {
-    //        public string sessionId { get; set; }
-    //        public List<RunInfo> runInfo { get; set; }
-    //    }
-    //
-    //    public class RunInfo
-    //    {
-    //        public string state { get; set; }
-    //        public string time { get; set; }
-    //        public string uniqueId { get; set; }
-    //    }
-
-    //    {
-    //  "runInfo": [
-    //    {
-    //      "state": "Run Up Starting",
-    //      "time": 1473956534640,
-    //      "uniqueId": "6dee4ce251123f0c1473956534719581465400"
-    //    }
-    //  ],
-    //  "sessionId": "nathantest"
-    //}
-
     class Program
     {
         static double lastTemp = 31.35;
         static double increment = 1;
+        private static int sendIntervalInSeconds = Convert.ToInt32(ConfigurationManager.AppSettings["sendIntervalInSeconds"]);
+        private static string deviceId = ConfigurationManager.AppSettings["deviceId"];
 
         public static void Main(string[] args)
         {
@@ -117,7 +96,7 @@ namespace IotHubClient
             }
 
             long msgTime = 1473956534640;
-
+            int iteration = 0;
             while (true)
             {
                 //send device to cloud telemetry
@@ -127,26 +106,16 @@ namespace IotHubClient
                     response = "environment",
                     temperature = lastTemp,
                     humidity = 28.7,
-                    pressure = 100912
+                    pressure = 100912,
+                    message_id = Guid.NewGuid().ToString(),
+                    device_id = deviceId
                 };
 
-//                //send device to cloud telemetry
-//                var deviceToCloudMessage = new DataHoistRunInfoMessage()
-//                {
-//                    sessionId = "nathantest",
-//                    runInfo = new List<RunInfo> { new RunInfo
-//                    {
-//                        state = "Run Up Starting",
-//                        time = msgTime.ToString(),
-//                        uniqueId = "6dee4ce251123f0c1473956534719581465400"
-//                    }}
-//                };
-
                 var messageString = JsonConvert.SerializeObject(deviceToCloudMessage);
-                var sendTask = AzureIoTHub.SendDeviceToCloudMessageAsync(messageString);
+                var sendTask = AzureIoTHub.SendDeviceToCloudMessageAsync(messageString, deviceToCloudMessage.message_id);
                 sendTask.Wait(ct);
                 Console.WriteLine("Sent Message to Cloud: {0}", messageString);
-                ct.WaitHandle.WaitOne(TimeSpan.FromSeconds(5));//wait before sending so we are not in a tight loop
+                ct.WaitHandle.WaitOne(TimeSpan.FromSeconds(sendIntervalInSeconds));//wait before sending so we are not in a tight loop
 
                 ++msgTime;
             }
@@ -161,14 +130,12 @@ namespace IotHubClient
                 ct.ThrowIfCancellationRequested();
             }
 
-
             while (true)
             {
                 //receive cloud messages
                 var rcvTask = AzureIoTHub.ReceiveCloudToDeviceMessageAsync();
                 rcvTask.Wait(ct);
                 Console.WriteLine("Received message from cloud: {0}", rcvTask.Result);
-                
 
 //                ct.WaitHandle.WaitOne(TimeSpan.FromSeconds(5));
 
