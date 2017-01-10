@@ -157,6 +157,50 @@
             <response code="400">Bad Request</response>
             <response code="404">Not Found</response>
         </member>
+        <member name="T:AdminApi.Service.StatsService">
+            <summary>
+            Handles stats data
+            </summary>
+        </member>
+        <member name="M:AdminApi.Service.StatsService.GetDeviceRecord(System.String)">
+            <summary>
+            get device record
+            </summary>
+            <param name="deviceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AdminApi.Service.StatsService.GetLatestAggregateRecords(System.String,System.Nullable{System.Int32})">
+            <summary>
+            get stats records for a period
+            </summary>
+            <param name="windowSize">day/hour/minute</param>
+            <param name="limit">max result count</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdminApi.Service.StatsService.GetLatestStatsForDevice(System.String,System.String,System.Nullable{System.Int32})">
+            <summary>
+            get stats records for a period for a device
+            </summary>
+            <param name="deviceId">device id</param>
+            <param name="windowSize">day/hour/minute</param>
+            <param name="limit">max result count</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdminApi.Service.StatsService.GetActiveAlertsForDevice(System.String,System.Nullable{System.Int32})">
+            <summary>
+            get active alerts for a device
+            </summary>
+            <param name="deviceId">device id</param>
+            <param name="limit">max result count</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdminApi.Service.StatsService.AcknowledgeAlert(System.String)">
+            <summary>
+            mark record as acknowledged
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:AdminApi.Service.ActivationService">
             <summary>
             Handles activation records
