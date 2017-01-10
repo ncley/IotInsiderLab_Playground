@@ -96,6 +96,8 @@ FROM
 --insert per device message counts for each new window
 Select
     CONCAT(deviceid, '_day_1_', CAST(time as nvarchar(max))) as id,
+    'day' as windowSize,
+    1 as windowUnit,
     deviceId,
 	messageCount,
     time
@@ -104,6 +106,8 @@ FROM daywindow
 UNION
 Select
     CONCAT(deviceid, '_hour_1_', CAST(time as nvarchar(max))) as id,
+    'hour' as windowSize,
+    1 as windowUnit,
     deviceId,
 	messageCount,
     time
@@ -111,6 +115,8 @@ FROM hourswindow
 UNION
 Select
     CONCAT(deviceid, '_minute_5_', CAST(time as nvarchar(max))) as id,
+    'minute' as windowSize,
+    5 as windowUnit,
     deviceId,
 	messageCount,
     time
@@ -161,7 +167,7 @@ Select
     dt.avg as allDevicesAverage,
     dw.Time,
     'Message Count for device is 4x average for all devices during time period' as reason
-into alarms
+into alerts
 FROM dayWindow dw
     INNER JOIN daytotals dt ON dw.Time = dt.windowEndTime AND DATEDIFF(ss, dw, dt)=0
 WHERE dw.messageCount > (dt.Avg * 4)

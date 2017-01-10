@@ -31,7 +31,7 @@ Select
     dw.messageCount as oneDayCount,
     dw.Time as OneDayCountTime
 into
-    devicedayout
+    deviceday
 FROM
     daywindow dw
 
@@ -40,7 +40,7 @@ Select
     hw.messageCount as oneHourCount,
     hw.Time as OneHourCountTime
 into
-    devicehoursout
+    devicehours
 FROM
     hourswindow hw
 
@@ -49,7 +49,7 @@ Select
     mw.messageCount as fiveMinuteCount,
     mw.Time as fiveMinuteCountTime
 into
-    deviceminutesout
+    deviceminutes
 FROM
     minuteswindow mw
 
