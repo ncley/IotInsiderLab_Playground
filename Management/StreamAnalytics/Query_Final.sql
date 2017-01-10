@@ -160,6 +160,8 @@ FROM minutestotals
 --create alert records if a device greatly exceeds to average for that period
 Select
     CONCAT(dw.deviceid, '_day_1_', CAST(dw.time as nvarchar(max))) as id,
+	'day' as windowSize,
+    1 as windowUnit,	
     dw.deviceId,
     'medium' as severity,
     'false' as acknowledged,
@@ -173,7 +175,9 @@ FROM dayWindow dw
 WHERE dw.messageCount > (dt.Avg * 4)
 UNION
 Select
-    CONCAT(hw.deviceid, '_minute_5_', CAST(hw.time as nvarchar(max))) as id,
+    CONCAT(hw.deviceid, '_hour_1_', CAST(hw.time as nvarchar(max))) as id,
+	'hour' as windowSize,
+    1 as windowUnit,
     hw.deviceId,
     'medium' as severity,
     'false' as acknowledged,
@@ -181,12 +185,14 @@ Select
     ht.avg as allDevicesAverage,
     hw.Time,
     'Message Count for device is 4x average for all devices during time period' as reason
-FROM minutesWindow hw
+FROM hoursWindow hw
     INNER JOIN minutestotals ht ON hw.Time = ht.windowEndTime AND DATEDIFF(ss, hw, ht)=0
 WHERE hw.messageCount > (ht.Avg * 4)
 UNION
 Select
     CONCAT(mw.deviceid, '_minute_5_', CAST(mw.time as nvarchar(max))) as id,
+    'minute' as windowSize,
+    5 as windowUnit,
     mw.deviceId,
     'medium' as severity,
     'false' as acknowledged,
