@@ -5,7 +5,7 @@ WITH minuteswindow AS
         COUNT(*) as messageCount,
         System.TimeStamp AS Time
     FROM devicemessages Timestamp by EventEnqueuedUtcTime
-    GROUP BY HOPPINGWINDOW (Duration(mi,5), Hop(ss, 30)), IoTHub.ConnectionDeviceId
+    GROUP BY HOPPINGWINDOW (Duration(mi,5), Hop(mi, 1)), IoTHub.ConnectionDeviceId
 ),
 hourswindow AS
 (
@@ -14,7 +14,7 @@ hourswindow AS
         COUNT(*) as messageCount,
         System.TimeStamp AS Time
     FROM devicemessages Timestamp by EventEnqueuedUtcTime
-    GROUP BY HOPPINGWINDOW (Duration(hh,1), Hop(mi, 5)), IoTHub.ConnectionDeviceId
+    GROUP BY HOPPINGWINDOW (Duration(hh,1), Hop(mi, 15)), IoTHub.ConnectionDeviceId
 ),
 daywindow AS
 (
@@ -23,7 +23,7 @@ daywindow AS
         COUNT(*) as messageCount,
         System.TimeStamp AS Time
     FROM devicemessages Timestamp by EventEnqueuedUtcTime
-    GROUP BY HOPPINGWINDOW (Duration(dd,1), Hop(hh, 1)), IoTHub.ConnectionDeviceId
+    GROUP BY HOPPINGWINDOW (Duration(dd,1), Hop(hh, 6)), IoTHub.ConnectionDeviceId
 ),
 minutesTotals AS
 (
@@ -37,7 +37,7 @@ minutesTotals AS
         SUM(messageCount), 
         System.Timestamp AS windowEndTime
     FROM minutesWindow
-    GROUP BY HOPPINGWINDOW (Duration(mi,5), Hop(ss, 30))
+    GROUP BY HOPPINGWINDOW (Duration(mi,5), Hop(mi, 1))
 ),
 hoursTotals AS
 (
@@ -51,7 +51,7 @@ hoursTotals AS
         SUM(messageCount), 
         System.Timestamp AS windowEndTime
     FROM hoursWindow
-    GROUP BY HOPPINGWINDOW (Duration(hh,1), Hop(mi, 5))
+    GROUP BY HOPPINGWINDOW (Duration(hh,1), Hop(mi, 15))
 ),
 dayTotals AS
 (
@@ -65,7 +65,7 @@ dayTotals AS
         SUM(messageCount), 
         System.Timestamp AS windowEndTime
     FROM daywindow
-    GROUP BY HOPPINGWINDOW (Duration(dd,1), Hop(hh, 1))
+    GROUP BY HOPPINGWINDOW (Duration(dd,1), Hop(hh, 6))
 )
 
 --upsert device records with most recent window counts
