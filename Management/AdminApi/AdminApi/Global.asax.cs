@@ -29,6 +29,7 @@ namespace AdminApi
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             builder.RegisterWebApiFilterProvider(config);
             builder.RegisterInstance(new ActivationService()).SingleInstance();
+            builder.RegisterInstance(new StatsService()).SingleInstance();
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

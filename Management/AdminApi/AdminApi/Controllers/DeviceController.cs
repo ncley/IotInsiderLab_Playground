@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AdminApi.Models;
 using AdminApi.Service;
 using Microsoft.Azure.Devices;
-using Microsoft.Azure.Documents.Client;
-using Newtonsoft.Json;
 using Swashbuckle.Swagger.Annotations;
 
 namespace AdminApi.Controllers
 {
     /// <summary>
-    /// Administrator API for Campaigns
+    /// Administrator API for Devices
     /// </summary>
     public class DeviceController : ApiController
     {

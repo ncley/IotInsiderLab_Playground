@@ -13,6 +13,7 @@ namespace AdminApi.Models
         public string id { get; set; }
         public int? windowunit { get; set; }
         public string windowsize { get; set; }
+        public double? median { get; set; }
         public double? avg { get; set; }
         public int? min { get; set; }
         public int? max { get; set; }

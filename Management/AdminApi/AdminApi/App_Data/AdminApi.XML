@@ -4,9 +4,73 @@
         <name>AdminApi</name>
     </assembly>
     <members>
+        <member name="T:AdminApi.Controllers.StatsController">
+            <summary>
+            Administrator API for Device Messaging Stats
+            </summary>
+        </member>
+        <member name="M:AdminApi.Controllers.StatsController.#ctor(AdminApi.Service.StatsService)">
+            <summary>
+            DI constructor
+            </summary>
+            <param name="statsService"></param>
+        </member>
+        <member name="M:AdminApi.Controllers.StatsController.GetDeviceRecord(System.String)">
+            <summary>
+            Get device record by id
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:AdminApi.Controllers.StatsController.GetLatestStatsForDevice(System.String,System.String,System.Nullable{System.Int32})">
+            <summary>
+            Get stats records for device
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:AdminApi.Controllers.StatsController.GetAlertsForDevice(System.String)">
+            <summary>
+            Get alert records for device
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:AdminApi.Controllers.StatsController.DeleteAllAlertsForDevice(System.String)">
+            <summary>
+            Delete all alert records for a device
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:AdminApi.Controllers.StatsController.DeleteAllAlerts">
+            <summary>
+            Delete all alert records
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:AdminApi.Controllers.StatsController.GetAlerts(System.Nullable{System.Int32})">
+            <summary>
+            Get alert records
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:AdminApi.Controllers.StatsController.GetLatestAggregateRecords(System.String,System.Nullable{System.Int32})">
+            <summary>
+            Get aggregate records
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:AdminApi.Controllers.StatsController.AcknowledgeAlert(System.String)">
+            <summary>
+            acknowledge alert record
+            </summary>
+            <param name="id">Id</param>
+            <remarks>
+            Id field is required
+            </remarks>
+            <response code="200">Success</response>
+            <response code="400">Bad Request</response>
+        </member>
         <member name="T:AdminApi.Controllers.ActivationController">
             <summary>
-            Administrator API for Campaigns
+            Administrator API for Activations
             </summary>
         </member>
         <member name="M:AdminApi.Controllers.ActivationController.#ctor(AdminApi.Service.ActivationService)">
@@ -76,7 +140,7 @@
         </member>
         <member name="T:AdminApi.Controllers.DeviceController">
             <summary>
-            Administrator API for Campaigns
+            Administrator API for Devices
             </summary>
         </member>
         <member name="M:AdminApi.Controllers.DeviceController.#ctor(AdminApi.Service.ActivationService)">
@@ -194,11 +258,30 @@
             <param name="limit">max result count</param>
             <returns></returns>
         </member>
+        <member name="M:AdminApi.Service.StatsService.GetActiveAlerts(System.Nullable{System.Int32})">
+            <summary>
+            get active alerts
+            </summary>
+            <param name="limit">max result count</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdminApi.Service.StatsService.DeleteAllAlerts">
+            <summary>
+            Delete All Alerts
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AdminApi.Service.StatsService.DeleteAllAlertsForDevice(System.String)">
+            <summary>
+            Delete All Alerts For Device
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AdminApi.Service.StatsService.AcknowledgeAlert(System.String)">
             <summary>
             mark record as acknowledged
             </summary>
-            <param name="id"></param>
+            <param name="id">alert id</param>
             <returns></returns>
         </member>
         <member name="T:AdminApi.Service.ActivationService">

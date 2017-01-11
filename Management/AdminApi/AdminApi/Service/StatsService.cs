@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using AdminApi.Models;
-using Microsoft.Azure.Devices;
-using Microsoft.Azure.Devices.Common.Exceptions;
+using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
 
@@ -120,15 +118,66 @@ namespace AdminApi.Service
             deviceId = deviceId.ToLower();
             var docDbClient = new DocumentClient(new Uri(docDbUri), docDbKey);
             var results = await QueryAsync(docDbClient.CreateDocumentQuery<DeviceAlert>(AlertDocumentCollectionUri)
-                .Where(item => item.deviceid == deviceId && !item.acknowledged.Value).OrderByDescending(item => item.time).Take(limit.Value)).ConfigureAwait(false);
+                .Where(item => item.deviceid == deviceId && item.acknowledged == "false").OrderByDescending(item => item.time).Take(limit.Value)).ConfigureAwait(false);
             return results;
         }
 
+        /// <summary>
+        /// get active alerts
+        /// </summary>
+        /// <param name="limit">max result count</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<DeviceAlert>> GetActiveAlerts( int? limit = 1000)
+        { 
+            var docDbClient = new DocumentClient(new Uri(docDbUri), docDbKey);
+            var results = await QueryAsync(docDbClient.CreateDocumentQuery<DeviceAlert>(AlertDocumentCollectionUri)
+                .Where(item => item.acknowledged == "false").OrderByDescending(item => item.time).Take(limit.Value)).ConfigureAwait(false);
+            return results;
+        }
+
+        /// <summary>
+        /// Delete All Alerts
+        /// </summary>
+        /// <returns></returns>
+        public async Task DeleteAllAlerts()
+        {
+            var docDbClient = new DocumentClient(new Uri(docDbUri), docDbKey);
+            var results = await QueryAsync(docDbClient.CreateDocumentQuery<DeviceAlert>(AlertDocumentCollectionUri)).ConfigureAwait(false);
+            var tasks = new List<Task<ResourceResponse<Document>>>();
+            foreach (var deviceAlert in results)
+            {
+                tasks.Add(docDbClient.DeleteDocumentAsync(UriFactory.CreateDocumentUri(databaseId, alertDocumentCollectionId,deviceAlert.id)));
+            }
+            Task.WaitAll(tasks.ToArray());
+        }
+
+        /// <summary>
+        /// Delete All Alerts For Device
+        /// </summary>
+        /// <returns></returns>
+        public async Task DeleteAllAlertsForDevice(string deviceId)
+        {
+            if (string.IsNullOrEmpty(deviceId))
+            {
+                throw new InvalidOperationException("invalid id");
+            }
+
+            deviceId = deviceId.ToLower();
+            var docDbClient = new DocumentClient(new Uri(docDbUri), docDbKey);
+            var results = await QueryAsync(docDbClient.CreateDocumentQuery<DeviceAlert>(AlertDocumentCollectionUri)
+                .Where(item => item.deviceid == deviceId)).ConfigureAwait(false);
+            var tasks = new List<Task<ResourceResponse<Document>>>();
+            foreach (var deviceAlert in results)
+            {
+                tasks.Add(docDbClient.DeleteDocumentAsync(UriFactory.CreateDocumentUri(databaseId, alertDocumentCollectionId, deviceAlert.id)));
+            }
+            Task.WaitAll(tasks.ToArray());
+        }
 
         /// <summary>
         /// mark record as acknowledged
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">alert id</param>
         /// <returns></returns>
         public async Task<DeviceAlert> AcknowledgeAlert(string id)
         {
@@ -145,7 +194,8 @@ namespace AdminApi.Service
             if(null == record)
                 throw new InvalidOperationException("record not found");
 
-            record.acknowledged = true;
+            //            record.acknowledged = true;
+            record.acknowledged = "true";
             record.acknowledgedTime = DateTime.UtcNow;
             var response = await docDbClient.UpsertDocumentAsync(AlertDocumentCollectionUri, record).ConfigureAwait(false);
             return record;

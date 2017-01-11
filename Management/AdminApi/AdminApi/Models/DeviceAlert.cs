@@ -14,9 +14,10 @@ namespace AdminApi.Models
         public string id { get; set; }
         public string deviceid { get; set; }
         public string severity { get; set; }
-        public bool? acknowledged { get; set; }
+        public string acknowledged { get; set; }
         public int? deviceMessagecount { get; set; }
         public double? allDevicesAverage { get; set; }
+        public double? allDevicesMedian { get; set; }
         public string reason { get; set; }
         public int? windowunit { get; set; }
         public string windowsize { get; set; }
