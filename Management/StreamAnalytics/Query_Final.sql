@@ -30,6 +30,7 @@ minutesTotals AS
     Select
         '5' as windowUnit,
         'minute' as windowSize,
+        PERCENTILE_DISC(0.5) OVER (ORDER BY messageCount) as median,
         AVG(messageCount),
         MIN(messageCount),
         MAX(messageCount),
@@ -43,6 +44,7 @@ hoursTotals AS
     Select
         '1' as windowUnit,
         'hour' as windowSize,
+        PERCENTILE_DISC(0.5) OVER (ORDER BY messageCount) as median,
         AVG(messageCount),
         MIN(messageCount),
         MAX(messageCount),
@@ -56,6 +58,7 @@ dayTotals AS
     Select
         '1' as windowUnit,
         'day' as windowSize,
+        PERCENTILE_DISC(0.5) OVER (ORDER BY messageCount) as median,
         AVG(messageCount),
         MIN(messageCount),
         MAX(messageCount),
@@ -127,6 +130,7 @@ Select
     CONCAT(windowSize, '_', windowUnit, '_', CAST(windowEndTime as nvarchar(max))) as id,
 	windowUnit,
 	windowSize,
+    median,
 	Avg,
 	Min,
 	Max,
@@ -139,6 +143,7 @@ Select
     CONCAT(windowSize, '_', windowUnit, '_', CAST(windowEndTime as nvarchar(max))) as id,
     windowUnit,
     windowSize,
+    median,
     Avg,
     Min,
     Max,
@@ -150,6 +155,7 @@ Select
     CONCAT(windowSize, '_', windowUnit, '_', CAST(windowEndTime as nvarchar(max))) as id,
     windowUnit,
     windowSize,
+    median,
     Avg,
     Min,
     Max,
@@ -157,7 +163,7 @@ Select
     windowEndTime
 FROM minutestotals
 
---create alert records if a device greatly exceeds to average for that period
+--create alert records if a device greatly exceeds the median for that period
 Select
     CONCAT(dw.deviceid, '_day_1_', CAST(dw.time as nvarchar(max))) as id,
 	'day' as windowSize,
@@ -167,12 +173,13 @@ Select
     'false' as acknowledged,
     dw.messageCount as deviceMessageCount,
     dt.avg as allDevicesAverage,
+    dt.median as allDevicesMedian,
     dw.Time,
     'Message Count for device is 4x average for all devices during time period' as reason
 into alerts
 FROM dayWindow dw
     INNER JOIN daytotals dt ON dw.Time = dt.windowEndTime AND DATEDIFF(ss, dw, dt)=0
-WHERE dw.messageCount > (dt.Avg * 4)
+WHERE dw.messageCount > (dt.median * 4)
 UNION
 Select
     CONCAT(hw.deviceid, '_hour_1_', CAST(hw.time as nvarchar(max))) as id,
@@ -183,11 +190,12 @@ Select
     'false' as acknowledged,
     hw.messageCount as deviceMessageCount,
     ht.avg as allDevicesAverage,
+    ht.median as allDevicesMedian,
     hw.Time,
     'Message Count for device is 4x average for all devices during time period' as reason
 FROM hoursWindow hw
-    INNER JOIN minutestotals ht ON hw.Time = ht.windowEndTime AND DATEDIFF(ss, hw, ht)=0
-WHERE hw.messageCount > (ht.Avg * 4)
+    INNER JOIN hourstotals ht ON hw.Time = ht.windowEndTime AND DATEDIFF(ss, hw, ht)=0
+WHERE hw.messageCount > (ht.median * 4)
 UNION
 Select
     CONCAT(mw.deviceid, '_minute_5_', CAST(mw.time as nvarchar(max))) as id,
@@ -198,8 +206,9 @@ Select
     'false' as acknowledged,
     mw.messageCount as deviceMessageCount,
     mt.avg as allDevicesAverage,
+    mt.median as allDevicesMedian,
     mw.Time,
     'Message Count for device is 4x average for all devices during time period' as reason
 FROM minutesWindow mw
     INNER JOIN minutestotals mt ON mw.Time = mt.windowEndTime AND DATEDIFF(ss, mw, mt)=0
-WHERE mw.messageCount > (mt.Avg * 4)
+WHERE mw.messageCount > (mt.median * 4)
