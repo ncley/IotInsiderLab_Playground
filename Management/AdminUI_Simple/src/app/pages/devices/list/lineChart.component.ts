@@ -1,30 +1,63 @@
-import {Component, ViewEncapsulation, OnInit} from '@angular/core';
+import {Component, ViewChild, ViewEncapsulation, Input, Output, ElementRef, EventEmitter, OnInit, AfterViewInit} from '@angular/core';
 import {BaThemeConfigProvider, colorHelper, layoutPaths} from '../../../theme';
+import {BaThemePreloader} from '../../../theme/services';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 import {DeviceService} from './device.service';
+import {BaAmChartThemeService} from './baAmChartTheme.service';
+
+require('style-loader!ammap3/ammap/ammap.css');
+
+require('amcharts3');
+require('amcharts3/amcharts/plugins/responsive/responsive.js');
+require('amcharts3/amcharts/serial.js');
+
+require('ammap3');
+require('ammap3/ammap/maps/js/worldLow');
 
 
 @Component({
   selector: 'line-chart',
   encapsulation: ViewEncapsulation.None,
   styles: [require('./lineChart.scss')],
-  template: require('./lineChart.html')
+  template: require('./lineChart.html'),
 })
-export class LineChart implements OnInit{
+export class LineChart implements OnInit,AfterViewInit{
+  baAmChartConfiguration:Object;
+  
+  @ViewChild('baAmChart') private _selector:ElementRef;
 
   chartData:Object;
   series:any;
 
-  ngOnInit(){ 
-    this.getData();     
-    }
-
-  constructor(private _baConfig:BaThemeConfigProvider, private _deviceService:DeviceService) {
-    //this.getData();
+  constructor (private _baConfig:BaThemeConfigProvider,private _baAmChartThemeService:BaAmChartThemeService, private _deviceService:DeviceService) {
+    this._loadChartsLib();
   }
 
+  ngOnInit () {
+    AmCharts.themes.blur = this._baAmChartThemeService.getTheme();
+//    this.getData();//should this move into after init?
+  }
+
+  ngAfterViewInit () {
+    this.getData();//should this move into after init?
+  }
+
+
+  private _loadChartsLib = () => {
+    BaThemePreloader.registerLoader(new Promise((resolve, reject) => {
+      let amChartsReadyMsg = 'AmCharts ready';
+
+      if (AmCharts.isReady) {
+        resolve(amChartsReadyMsg);
+      } else {
+        AmCharts.ready(function () {
+          resolve(amChartsReadyMsg);
+        });
+      }
+    }));
+  }
 
   initChart(chart:any) {
     // let zoomChart = () => {
@@ -134,8 +167,11 @@ export class LineChart implements OnInit{
     
   }
 
+
   setChartObject = (chObj) => {
     this.chartData = chObj;
+    let chart = AmCharts.makeChart(this._selector.nativeElement, this.chartData);
+    this.initChart(chart);
   }
 
   buildChartFromSeries = (series) => {

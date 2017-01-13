@@ -8,6 +8,7 @@ import { routing }       from './devices.routing';
 import { ModalModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { DeviceList, DeviceDetails, DeviceActivations, ActivationDetails, LineChart } from './list';
 import { DeviceService } from './list/device.service';
+import { BaAmChartThemeService } from './list/baAmChartTheme.service';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { DeviceService } from './list/device.service';
   ],
   providers: [
     DeviceService,
+    BaAmChartThemeService
   ]
 })
 export default class DevicesModule {}
