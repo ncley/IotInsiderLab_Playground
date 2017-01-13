@@ -40,14 +40,14 @@ export class LineChart implements OnInit{
   }
 
   getData = () => {
-
+    var me = this;
     //this._deviceService.getLatestAggregateMessageStats('minute').subscribe(data => {
-    this._deviceService.getAllDevices().subscribe(data => {
+    me._deviceService.getAllDevices().subscribe(data => {
       //  var series = data.map(function(item) {
       //     return { date: new Date(2013, 0), value: 15000, value0: 19000};//{date:item.windowendtime,value:item.min,value0:item.max};
       // });
 
-        this.series = [
+        me.series = [
           { date: new Date(2012, 11), value: 0, value0: 0 },
           { date: new Date(2013, 0), value: 15000, value0: 19000},
           { date: new Date(2013, 1), value: 30000, value0: 20000},
@@ -87,7 +87,8 @@ export class LineChart implements OnInit{
       var bar = 2;
     },
     () => {
-      this.chartData = this.buildChartFromSeries(this.series)
+      me.setChartObject(me.buildChartFromSeries(me.series));
+      //me.chartData = me.buildChartFromSeries(me.series)
     });
 
 
@@ -130,9 +131,11 @@ export class LineChart implements OnInit{
       //   { date: new Date(2015, 0), value: 54800, value0: 13000},
       //   { date: new Date(2015, 1), value: 49800, value0: 13000}
       // ];
-      
-
     
+  }
+
+  setChartObject = (chObj) => {
+    this.chartData = chObj;
   }
 
   buildChartFromSeries = (series) => {

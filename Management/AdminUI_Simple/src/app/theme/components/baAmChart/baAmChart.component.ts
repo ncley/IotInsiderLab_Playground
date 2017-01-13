@@ -1,5 +1,4 @@
-import {Component, ViewChild, ViewEncapsulation, Input, Output, ElementRef, EventEmitter} from '@angular/core';
-
+import {Component, ViewChild, ViewEncapsulation, Input, Output, ElementRef, EventEmitter, OnInit, AfterViewInit} from '@angular/core';
 import {BaThemePreloader} from '../../../theme/services';
 
 import './baAmChart.loader.ts';
@@ -11,7 +10,7 @@ import {BaAmChartThemeService} from './baAmChartTheme.service';
   encapsulation: ViewEncapsulation.None,
   providers: [BaAmChartThemeService],
 })
-export class BaAmChart {
+export class BaAmChart implements OnInit, AfterViewInit{
 
   @Input() baAmChartConfiguration:Object;
   @Input() baAmChartClass:string;
