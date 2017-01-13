@@ -6,7 +6,7 @@ import { NgaModule } from '../../theme/nga.module';
 import { Devices } from './devices.component';
 import { routing }       from './devices.routing';
 import { ModalModule } from 'ng2-bootstrap/ng2-bootstrap';
-import { DeviceList, DeviceDetails, DeviceActivations, ActivationDetails } from './list';
+import { DeviceList, DeviceDetails, DeviceActivations, ActivationDetails, LineChart } from './list';
 import { DeviceService } from './list/device.service';
 
 @NgModule({
@@ -22,7 +22,8 @@ import { DeviceService } from './list/device.service';
     DeviceDetails,
     DeviceActivations,
     ActivationDetails,
-    Devices
+    Devices,
+    LineChart
   ],
   providers: [
     DeviceService,

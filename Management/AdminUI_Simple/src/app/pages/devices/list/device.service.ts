@@ -5,6 +5,7 @@ import { Subject }    from 'rxjs/Subject';
 import 'rxjs/Rx';
 import Dto = require("../../../model/IotDevice");
 import Dto1 = require("../../../model/Activation");
+import Dto2 = require("../../../model/AggregateStats");
 
 @Injectable()
 export class DeviceService {
@@ -115,4 +116,30 @@ export class DeviceService {
             return activation;
         });
     }
+
+    public getLatestAggregateMessageStats=(windowSize:string): Observable<Dto2.AggregateStats[]> => {
+        ///api/stats/aggregate/{windowsize}?limit=
+        var url = this.BASE_URI + '/stats/aggregate/' + windowSize;
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('limit', '100');
+
+        return this.$http.get(url, { search: params }).map(response => {
+            return <Dto2.AggregateStats[]>response.json();
+        });
+    }
+
+    // public getLatestAggregateMessageStats=(windowSize:string): Dto2.AggregateStats[] => {
+    //     ///api/stats/aggregate/{windowsize}?limit=
+    //     var url = this.BASE_URI + '/stats/aggregate/' + windowSize;
+    //     let params: URLSearchParams = new URLSearchParams();
+    //     params.set('limit', '100');
+
+    //     var result;
+    //     this.$http.get(url, { search: params }).map(response => {
+    //         return <Dto2.AggregateStats[]>response.json();
+    //     }).subscribe(data => {
+    //         result = data;
+    //     });
+    //     return result;
+    // }
 }

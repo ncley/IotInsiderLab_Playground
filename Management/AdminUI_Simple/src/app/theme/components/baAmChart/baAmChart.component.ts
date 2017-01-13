@@ -23,16 +23,20 @@ export class BaAmChart {
     this._loadChartsLib();
   }
 
-  ngOnInit() {
+  ngOnInit () {
     AmCharts.themes.blur = this._baAmChartThemeService.getTheme();
   }
 
-  ngAfterViewInit() {
-    let chart = AmCharts.makeChart(this._selector.nativeElement, this.baAmChartConfiguration);
-    this.onChartReady.emit(chart);
+ ngAfterViewInit () {
+   this.shitBird();
   }
 
-  private _loadChartsLib():void {
+  shitBird = () => {
+     let chart = AmCharts.makeChart(this._selector.nativeElement, this.baAmChartConfiguration);
+     this.onChartReady.emit(chart);
+  }
+
+  private _loadChartsLib = () => {
     BaThemePreloader.registerLoader(new Promise((resolve, reject) => {
       let amChartsReadyMsg = 'AmCharts ready';
 
