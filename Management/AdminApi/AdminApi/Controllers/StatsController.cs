@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -58,7 +59,7 @@ namespace AdminApi.Controllers
             }
 
             deviceid = deviceid.ToLower();
-            return Ok(await _statsService.GetLatestStatsForDevice(deviceid, windowsize, limit).ConfigureAwait(false));
+            return Ok((await _statsService.GetLatestStatsForDevice(deviceid, windowsize, limit).ConfigureAwait(false)).OrderBy(item => item.time));
         }
 
         /// <summary>
@@ -127,7 +128,7 @@ namespace AdminApi.Controllers
         public async Task<IHttpActionResult> GetLatestAggregateRecords(string windowsize = "day", int? limit = 1000)
         {
             windowsize = windowsize.ToLower();
-            return Ok(await _statsService.GetLatestAggregateRecords(windowsize, limit).ConfigureAwait(false));
+            return Ok((await _statsService.GetLatestAggregateRecords(windowsize, limit).ConfigureAwait(false)).OrderBy(item => item.windowendtime));
         }
 
         /// <summary>
