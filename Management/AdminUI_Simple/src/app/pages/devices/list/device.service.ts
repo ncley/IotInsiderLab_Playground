@@ -154,5 +154,10 @@ export class DeviceService {
         });
     }
 
-///api/stats/alerts/acknowledge 
+    public acknowledgeAlert= (alertId:string): void =>{
+        ///api/stats/alerts/acknowledge 
+        var url = this.BASE_URI + '/stats/alerts/acknowledge';
+        this.$http.put(url,{alertId});
+    }
+
 }

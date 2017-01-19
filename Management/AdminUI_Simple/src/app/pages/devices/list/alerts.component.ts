@@ -40,9 +40,9 @@ export class Alerts implements AfterViewInit{
   }
 
   acknowledge = (item:Dto.DeviceAlert):void => {
+    this._deviceService.acknowledgeAlert(item.id);
     var temp:any = item;
     temp.visibility = 'hidden';
-    //this._deviceService.selectDevice(item.deviceid);
   }
 
   isSelected = (item:Dto.DeviceAlert):boolean => {
