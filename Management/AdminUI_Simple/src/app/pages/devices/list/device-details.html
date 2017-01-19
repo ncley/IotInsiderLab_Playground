@@ -51,8 +51,56 @@
         {{device?.cloudToDeviceMessageCount}}
       </div>
     </div>
-    <!--<div  class="row device-details-row">
-    </div>-->
+    <!-- Device State -->
+    <div  class="row device-details-row">
+      <div class="col-xs-4">
+        Most recent 5 min msg count
+      </div>
+      <div class="col-xs-8 text-right">
+        {{deviceState?.fiveminutecount || 0}}
+      </div>
+    </div>
+    <div  class="row device-details-row">
+      <div class="col-xs-4">
+        Time of last 5 min count
+      </div>
+      <div class="col-xs-8 text-right">
+        {{deviceState?.fiveminutecounttime}}
+      </div>
+    </div>
+    <div  class="row device-details-row">
+      <div class="col-xs-4">
+        Most recent 1 hour msg count
+      </div>
+      <div class="col-xs-8 text-right">
+        {{deviceState?.onehourcount || 0}}
+      </div>
+    </div>
+    <div  class="row device-details-row">
+      <div class="col-xs-4">
+        Time of last 1 hour count
+      </div>
+      <div class="col-xs-8 text-right">
+        {{deviceState?.onehourcounttime}}
+      </div>
+    </div>
+    <div  class="row device-details-row">
+      <div class="col-xs-4">
+        Most recent 1 day msg count
+      </div>
+      <div class="col-xs-8 text-right">
+        {{deviceState?.onedaycount || 0}}
+      </div>
+    </div>
+    <div  class="row device-details-row">
+      <div class="col-xs-4">
+        Time of last 1 day count
+      </div>
+      <div class="col-xs-8 text-right">
+        {{deviceState?.onedaycounttime}}
+      </div>
+    </div>        
+    <!--Action Buttons-->
     <div  class="row device-details-row device-button-row">
       <div class="btn-group-example col-xs-4">
         <div class="btn-group" role="group" aria-label="Enabled/Disable device message sending rights">

@@ -12,10 +12,11 @@ import {DeviceService} from './device.service';
   template: require('./device-list.html')
 })
 export class DeviceList implements OnInit{
-  //public deviceList:Observable<Array<string>>;
+  
   public deviceList:Array<any>;
   public newItemText:string = '';
   public selectedDevice:any;
+  public selectedDeviceState:any;
   public selectedDeviceActivationRecords:Array<any>;
 
   ngOnInit()    { this.getData(); }
@@ -61,6 +62,7 @@ export class DeviceList implements OnInit{
 
   showDetails = (item) => {
     this.selectedDevice = item;
+    this.getStateForCurrentDevice();
     this.getActivationsForCurrentDevice();
   }
 
@@ -81,6 +83,14 @@ export class DeviceList implements OnInit{
     if(null != this.selectedDevice){
       this._deviceService.getAllActivationRecordsForDevice(this.selectedDevice.deviceId).subscribe(data => {
         this.selectedDeviceActivationRecords = data;
+      });
+    }
+  }
+
+  getStateForCurrentDevice = () => {
+    if(null != this.selectedDevice){
+      this._deviceService.getStateForDevice(this.selectedDevice.deviceId).subscribe(data => {
+        this.selectedDeviceState = data;
       });
     }
   }

@@ -3,6 +3,7 @@ import {BaThemeConfigProvider} from '../../../theme';
 import {ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 import {DeviceService} from './device.service';
 import Dto = require("../../../model/IotDevice");
+import Dto1 = require("../../../model/DeviceState");
 
 @Component({
   selector: 'device-details',
@@ -14,6 +15,8 @@ import Dto = require("../../../model/IotDevice");
 export class DeviceDetails {
   @Input()
   public device:Dto.IotDevice;
+  @Input()
+  public deviceState:Dto1.DeviceState;
 
   @ViewChild('msgModal') msgModal: ModalDirective;
   public messageToSend:string;

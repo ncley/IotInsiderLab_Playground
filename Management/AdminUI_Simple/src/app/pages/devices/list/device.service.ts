@@ -7,6 +7,7 @@ import Dto = require("../../../model/IotDevice");
 import Dto1 = require("../../../model/Activation");
 import Dto2 = require("../../../model/AggregateStats");
 import Dto3 = require("../../../model/DeviceAlert");
+import Dto4 = require("../../../model/DeviceState");
 
 @Injectable()
 export class DeviceService {
@@ -124,6 +125,14 @@ export class DeviceService {
         });
     }
 
+    public getStateForDevice=(deviceId:string): Observable<Dto4.DeviceState> => {
+        //api/stats/devicestate/{deviceid} 
+        var url = this.BASE_URI + '/stats/devicestate/' + deviceId;
+        return this.$http.get(url).map(response => {
+            return <Dto4.DeviceState>response.json();
+        });
+    }
+
     public getLatestAggregateMessageStats=(windowSize:string): Observable<Dto2.AggregateStats[]> => {
         ///api/stats/aggregate/{windowsize}?limit=
         var url = this.BASE_URI + '/stats/aggregate/' + windowSize;
@@ -145,18 +154,5 @@ export class DeviceService {
         });
     }
 
-    // public getLatestAggregateMessageStats=(windowSize:string): Dto2.AggregateStats[] => {
-    //     ///api/stats/aggregate/{windowsize}?limit=
-    //     var url = this.BASE_URI + '/stats/aggregate/' + windowSize;
-    //     let params: URLSearchParams = new URLSearchParams();
-    //     params.set('limit', '100');
-
-    //     var result;
-    //     this.$http.get(url, { search: params }).map(response => {
-    //         return <Dto2.AggregateStats[]>response.json();
-    //     }).subscribe(data => {
-    //         result = data;
-    //     });
-    //     return result;
-    // }
+///api/stats/alerts/acknowledge 
 }

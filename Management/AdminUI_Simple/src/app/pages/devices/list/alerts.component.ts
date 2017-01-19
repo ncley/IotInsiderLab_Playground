@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation, Input, ChangeDetectionStrategy, ViewChild, OnInit, AfterViewInit} from '@angular/core';
+import {Component, ViewEncapsulation, AfterViewInit, trigger, state, animate, transition, style} from '@angular/core';
 import {DeviceService} from './device.service';
 import Dto = require("../../../model/DeviceAlert");
 
@@ -7,8 +7,19 @@ import Dto = require("../../../model/DeviceAlert");
   encapsulation: ViewEncapsulation.None,
   styles: [require('./alerts.scss')],
   template: require('./alerts.html'),
+  animations: [
+    trigger('visibility', [
+        state('shown', style({
+            opacity: 1
+        })),
+        state('hidden', style({
+            opacity: 0
+        })),
+        transition('* => *', animate('.5s'))
+    ])
+  ],
 })
-export class Alerts implements OnInit,AfterViewInit{
+export class Alerts implements AfterViewInit{
   
   selectedItem:Dto.DeviceAlert;
   public alerts:Array<Dto.DeviceAlert>;
@@ -26,6 +37,12 @@ export class Alerts implements OnInit,AfterViewInit{
   selectItem = (item:Dto.DeviceAlert):void => {
     this.selectedItem = item;
     this._deviceService.selectDevice(item.deviceid);
+  }
+
+  acknowledge = (item:Dto.DeviceAlert):void => {
+    var temp:any = item;
+    temp.visibility = 'hidden';
+    //this._deviceService.selectDevice(item.deviceid);
   }
 
   isSelected = (item:Dto.DeviceAlert):boolean => {

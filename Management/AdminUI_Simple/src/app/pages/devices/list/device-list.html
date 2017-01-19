@@ -29,7 +29,7 @@
     </div>
   </ba-card>
   
-  <device-details [device]=selectedDevice></device-details>
+  <device-details [device]=selectedDevice [deviceState]=selectedDeviceState></device-details>
   
   <ba-card *ngIf="selectedDeviceActivationRecords" class="col-xs-4" baCardClass="xmedium-card device-panel">
     <device-activations [activations]=selectedDeviceActivationRecords></device-activations>
