@@ -16,7 +16,7 @@
       <div class="box-shadow-border"></div>
 
       <ul class="device-list">
-        <li *ngFor="let item of deviceList" [ngClass]="{checked: item.enabled, active: item.isActive}"
+        <li *ngFor="let item of deviceList" [ngClass]="{checked: item.enabled, active: item.isActive}" [class.selected]="isSelected(item)"
             (mouseenter)="item.isActive=true" (mouseleave)="item.isActive=false" (click)="showDetails(item)">
           <div class="blur-container"><div class="blur-box"></div></div>
           <i class="mark"></i>

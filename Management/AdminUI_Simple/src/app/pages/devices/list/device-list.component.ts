@@ -35,6 +35,12 @@ export class DeviceList implements OnInit{
         this.selectedDeviceActivationRecords = this.selectedDeviceActivationRecords.splice(0);//so Angular will detect the change
       });
 
+    _deviceService.deviceSelected$.subscribe(deviceId => {
+        var index = this.deviceList.findIndex(item => item.deviceId == deviceId);
+        if (index > -1) {
+            this.handleExternalSelection(this.deviceList[index]);
+        }
+      });
   }
 
   addItem = ($event) => {
@@ -49,10 +55,20 @@ export class DeviceList implements OnInit{
     }
   }
 
+  handleExternalSelection = (item) => {
+    this.showDetails(item);
+  }
 
   showDetails = (item) => {
     this.selectedDevice = item;
     this.getActivationsForCurrentDevice();
+  }
+
+  isSelected = (item):boolean => {
+    if(!this.selectedDevice || !item) {
+			return false;
+		}
+		return this.selectedDevice.deviceId ===  item.deviceId ? true : false;
   }
 
   getData = () => {

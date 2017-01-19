@@ -25,6 +25,7 @@ export class Alerts implements OnInit,AfterViewInit{
 
   selectItem = (item:Dto.DeviceAlert):void => {
     this.selectedItem = item;
+    this._deviceService.selectDevice(item.deviceid);
   }
 
   isSelected = (item:Dto.DeviceAlert):boolean => {
@@ -32,7 +33,6 @@ export class Alerts implements OnInit,AfterViewInit{
 			return false;
 		}
 		return this.selectedItem.id ===  item.id ? true : false;
-
   }
 
   getData = () => {

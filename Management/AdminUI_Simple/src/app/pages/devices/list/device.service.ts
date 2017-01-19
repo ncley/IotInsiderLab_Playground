@@ -15,10 +15,12 @@ export class DeviceService {
 
     // Observable  sources
     private deviceDeletedSource = new Subject<any>();
+    private deviceSelectedSource = new Subject<any>();
     private activationDeletedSource = new Subject<any>();
     private activationAddedSource = new Subject<any>();
     // Observable  streams
     deviceDeleted$ = this.deviceDeletedSource.asObservable();
+    deviceSelected$ = this.deviceSelectedSource.asObservable();
     activationDeleted$ = this.activationDeletedSource.asObservable();
     activationAdded$ = this.activationAddedSource.asObservable();
 
@@ -61,6 +63,10 @@ export class DeviceService {
             this.deviceDeletedSource.next(deviceId);
             return deviceId;
         });
+    }
+
+    public selectDevice = (deviceId:string):void =>{
+        this.deviceSelectedSource.next(deviceId);
     }
 
     public setDeviceState= (deviceId:string, enabled: boolean, reason: string): Observable<Dto.IotDevice> =>{
