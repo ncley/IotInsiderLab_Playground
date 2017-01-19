@@ -6,7 +6,7 @@ import { NgaModule } from '../../theme/nga.module';
 import { Devices } from './devices.component';
 import { routing }       from './devices.routing';
 import { ModalModule } from 'ng2-bootstrap/ng2-bootstrap';
-import { DeviceList, DeviceDetails, DeviceActivations, ActivationDetails, LineChart } from './list';
+import { DeviceList, DeviceDetails, DeviceActivations, ActivationDetails, LineChart, Alerts } from './list';
 import { DeviceService } from './list/device.service';
 import { BaAmChartThemeService } from './list/baAmChartTheme.service';
 
@@ -24,7 +24,8 @@ import { BaAmChartThemeService } from './list/baAmChartTheme.service';
     DeviceActivations,
     ActivationDetails,
     Devices,
-    LineChart
+    LineChart,
+    Alerts
   ],
   providers: [
     DeviceService,

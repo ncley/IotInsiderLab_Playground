@@ -74,41 +74,6 @@ export class LineChart implements OnInit,AfterViewInit{
        me.series = data.map(function(item) {
           return {date: new Date(item.windowendtime),value:item.min,value0:item.median};
       });
-
-        // me.series = [
-        //   //{ date: new Date(2012, 11), value: 0, value0: 0 },
-        //   { date: new Date("2017-01-11T23:39:00Z"), value: 1, value0: 6},
-        //   { date: new Date("2017-01-11T23:40:00Z"), value: 1, value0: 7},
-        //   { date: new Date("2017-01-11T23:41:00Z"), value: 1, value0: 5},
-        //   { date: new Date("2017-01-11T23:42:00Z"), value: 1, value0: 4},
-        //   { date: new Date("2017-01-11T23:43:00Z"), value: 1, value0: 1},
-
-        //   // { date: new Date(2013, 1, 1, 1,4,0,0), value: 21000, value0: 25000},
-        //   // { date: new Date(2013, 1, 1, 1,5,0,0), value: 24000, value0: 29000},
-        //   // { date: new Date(2013, 5), value: 31000, value0: 26000},
-        //   // { date: new Date(2013, 6), value: 40000, value0: 25000},
-        //   // { date: new Date(2013, 7), value: 37000, value0: 20000},
-        //   // { date: new Date(2013, 8), value: 18000, value0: 22000},
-        //   // { date: new Date(2013, 9), value: 5000, value0: 26000},
-        //   // { date: new Date(2013, 10), value: 40000, value0: 30000},
-        //   // { date: new Date(2013, 11), value: 20000, value0: 25000},
-        //   // { date: new Date(2014, 0), value: 5000, value0: 13000},
-
-        //   // { date: new Date(2014, 1), value: 3000, value0: 13000},
-        //   // { date: new Date(2014, 2), value: 1800, value0: 13000},
-        //   // { date: new Date(2014, 3), value: 10400, value0: 13000},
-        //   // { date: new Date(2014, 4), value: 25500, value0: 13000},
-        //   // { date: new Date(2014, 5), value: 2100, value0: 13000},
-        //   // { date: new Date(2014, 6), value: 6500, value0: 13000},
-        //   // { date: new Date(2014, 7), value: 1100, value0: 13000},
-        //   // { date: new Date(2014, 8), value: 17200, value0: 13000},
-        //   // { date: new Date(2014, 9), value: 26900, value0: 13000},
-        //   // { date: new Date(2014, 10), value: 14100, value0: 13000},
-        //   // { date: new Date(2014, 11), value: 35300, value0: 13000},
-        //   // { date: new Date(2015, 0), value: 54800, value0: 13000},
-        //   // { date: new Date(2015, 1), value: 49800, value0: 13000}
-        // ];
-
     },
     error => {
       //var bar = 2;
@@ -116,7 +81,6 @@ export class LineChart implements OnInit,AfterViewInit{
     () => {
       me.setChartObject(me.buildChartConfigFromSeries(me.series));
     });
-
   }
 
 
@@ -138,8 +102,7 @@ export class LineChart implements OnInit,AfterViewInit{
       responsive: {
         'enabled': true
       },
-      dataProvider: series
-      ,
+      dataProvider: series,
       categoryField: 'date',
       categoryAxis: {
         "minPeriod": "mm",
@@ -156,8 +119,17 @@ export class LineChart implements OnInit,AfterViewInit{
           axisColor: layoutColors.defaultText
         }
       ],
+    //   "legend": {
+    //     "align": "center",
+    //     "equalWidths": false,
+    //     "periodValueText": "total: [[value.sum]]",
+    //     "valueAlign": "left",
+    //     "valueText": "[[value]] ([[percents]]%)",
+    //     "valueWidth": 100
+    // },
       graphs: [
         {
+          "balloonText": "Max: <b>[[value]]</b>",
           id: 'g0',
           bullet: 'none',
           useLineColorForBulletBorder: true,
@@ -170,6 +142,7 @@ export class LineChart implements OnInit,AfterViewInit{
           fillColorsField: 'lineColor'
         },
         {
+          "balloonText": "Median: <b>[[value]]</b>",
           id: 'g1',
           bullet: 'none',
           useLineColorForBulletBorder: true,
@@ -183,7 +156,8 @@ export class LineChart implements OnInit,AfterViewInit{
         }
       ],
       chartCursor: {
-        categoryBalloonDateFormat: 'JJ:NN, DD MMMM',
+        //categoryBalloonText: '[[category]]',
+        categoryBalloonDateFormat: 'JJ:NN, YYYY-MM-DD',
         categoryBalloonColor: '#4285F4',
         categoryBalloonAlpha: 0.7,
         cursorAlpha: 0,
@@ -191,7 +165,7 @@ export class LineChart implements OnInit,AfterViewInit{
         valueLineBalloonEnabled: true,
         valueLineAlpha: 0.5
       },
-      dataDateFormat: 'YYYY-MM-DD HH:NN:SS',
+      //dataDateFormat: 'YYYY-MM-DD HH:NN:SS',
       export: {
         enabled: true
       },

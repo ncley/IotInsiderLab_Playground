@@ -1,0 +1,7 @@
+<div class="dashboard-alerts">
+  <ul class="alert-list">
+    <li *ngFor="let item of alerts" class="alert-row" (click)="selectItem(item)" [class.selected]="isSelected(item)">
+        <span class="cut-with-dots">{{ item.deviceid }},{{ item.reason }}</span>
+    </li>
+  </ul>
+</div>

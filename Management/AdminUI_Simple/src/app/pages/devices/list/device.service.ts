@@ -6,6 +6,7 @@ import 'rxjs/Rx';
 import Dto = require("../../../model/IotDevice");
 import Dto1 = require("../../../model/Activation");
 import Dto2 = require("../../../model/AggregateStats");
+import Dto3 = require("../../../model/DeviceAlert");
 
 @Injectable()
 export class DeviceService {
@@ -121,10 +122,20 @@ export class DeviceService {
         ///api/stats/aggregate/{windowsize}?limit=
         var url = this.BASE_URI + '/stats/aggregate/' + windowSize;
         let params: URLSearchParams = new URLSearchParams();
-        params.set('limit', '100');
+        params.set('limit', '120');
 
         return this.$http.get(url, { search: params }).map(response => {
             return <Dto2.AggregateStats[]>response.json();
+        });
+    }
+
+    public getLatestAlerts=(): Observable<Dto3.DeviceAlert[]> => {
+        //api/stats/alerts?limit=10
+        var url = this.BASE_URI + '/stats/alerts/';
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('limit', '5');
+        return this.$http.get(url, { search: params }).map(response => {
+            return <Dto3.DeviceAlert[]>response.json();
         });
     }
 

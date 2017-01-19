@@ -13,6 +13,10 @@
     padding-top:10px;
   }
 
+  .device-button-row {
+    border-top: 2px solid $border-light;
+  }
+
   .disabled{
       color:$danger;
   }
