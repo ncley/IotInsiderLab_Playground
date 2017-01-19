@@ -142,7 +142,7 @@ namespace AdminApi.Controllers
         /// <response code="400">Bad Request</response>
         [HttpPut]
         [Route("api/stats/alerts/acknowledge")]
-        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Activation))]
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(DeviceAlert))]
         [SwaggerResponse(HttpStatusCode.BadRequest)]
         public async Task<IHttpActionResult> AcknowledgeAlert([FromBody]string id)
         {
@@ -151,7 +151,7 @@ namespace AdminApi.Controllers
                 return BadRequest();
             }
 
-            id = id.ToLower();
+            //id = id.ToLower();
             return Ok(await _statsService.AcknowledgeAlert(id));
         }
     }

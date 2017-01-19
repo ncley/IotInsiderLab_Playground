@@ -186,7 +186,7 @@ namespace AdminApi.Service
                 throw new InvalidOperationException("invalid id");
             }
 
-            id = id.ToLower();
+            //id = id.ToLower();
             var docDbClient = new DocumentClient(new Uri(docDbUri), docDbKey);
             var record = (await QueryAsync(docDbClient.CreateDocumentQuery<DeviceAlert>(AlertDocumentCollectionUri)
                 .Where(item => item.id == id)).ConfigureAwait(false)).FirstOrDefault();
