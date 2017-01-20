@@ -40,7 +40,9 @@ export class Alerts implements AfterViewInit{
   }
 
   acknowledge = (item:Dto.DeviceAlert):void => {
-    this._deviceService.acknowledgeAlert(item.id);
+    this._deviceService.acknowledgeAlert(item.id).subscribe(data => {
+       var foo = data;
+    });
     var temp:any = item;
     temp.visibility = 'hidden';
   }

@@ -154,10 +154,14 @@ export class DeviceService {
         });
     }
 
-    public acknowledgeAlert= (alertId:string): void =>{
+    public acknowledgeAlert= (alertId:string): Observable<Dto3.DeviceAlert> =>{
         ///api/stats/alerts/acknowledge 
         var url = this.BASE_URI + '/stats/alerts/acknowledge';
-        this.$http.put(url,{alertId});
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.$http.put(url,'"'+ alertId + '"', options).map(response => {
+            return <Dto3.DeviceAlert>response.json();
+        });
     }
 
 }
