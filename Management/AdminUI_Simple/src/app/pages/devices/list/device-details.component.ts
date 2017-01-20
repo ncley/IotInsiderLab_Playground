@@ -18,6 +18,7 @@ export class DeviceDetails {
   @Input()
   public deviceState:Dto1.DeviceState;
 
+
   @ViewChild('msgModal') msgModal: ModalDirective;
   public messageToSend:string;
 
@@ -58,6 +59,7 @@ export class DeviceDetails {
       });
     }
     else{
+
       //TODO: tell user they need to input something
     }
   }
