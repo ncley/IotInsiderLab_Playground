@@ -137,7 +137,7 @@ export class DeviceService {
         ///api/stats/aggregate/{windowsize}?limit=
         var url = this.BASE_URI + '/stats/aggregate/' + windowSize;
         let params: URLSearchParams = new URLSearchParams();
-        params.set('limit', '120');
+        params.set('limit', '24');
 
         return this.$http.get(url, { search: params }).map(response => {
             return <Dto2.AggregateStats[]>response.json();
