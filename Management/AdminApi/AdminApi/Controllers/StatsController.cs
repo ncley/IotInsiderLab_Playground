@@ -40,7 +40,7 @@ namespace AdminApi.Controllers
                 return BadRequest();
             }
 
-            deviceid = deviceid.ToLower();
+            //deviceid = deviceid.ToLower();
             return Ok(await _statsService.GetDeviceRecord(deviceid).ConfigureAwait(false));
         }
 
@@ -58,7 +58,7 @@ namespace AdminApi.Controllers
                 return BadRequest();
             }
 
-            deviceid = deviceid.ToLower();
+            //deviceid = deviceid.ToLower();
             return Ok((await _statsService.GetLatestStatsForDevice(deviceid, windowsize, limit).ConfigureAwait(false)).OrderBy(item => item.time));
         }
 
@@ -76,7 +76,7 @@ namespace AdminApi.Controllers
                 return BadRequest();
             }
 
-            deviceid = deviceid.ToLower();
+            //deviceid = deviceid.ToLower();
             return Ok(await _statsService.GetActiveAlertsForDevice(deviceid).ConfigureAwait(false));
         }
 

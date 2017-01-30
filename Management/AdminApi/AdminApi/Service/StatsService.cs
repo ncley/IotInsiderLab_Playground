@@ -58,7 +58,7 @@ namespace AdminApi.Service
                 throw new InvalidOperationException("invalid id");
             }
 
-            deviceId = deviceId.ToLower();
+            //deviceId = deviceId.ToLower();
             var docDbClient = new DocumentClient(new Uri(docDbUri), docDbKey);
             var results = await QueryAsync(docDbClient.CreateDocumentQuery<DeviceState>(DeviceDocumentCollectionUri)
                 .Where(item => item.id == deviceId)).ConfigureAwait(false);
@@ -94,7 +94,7 @@ namespace AdminApi.Service
                 throw new InvalidOperationException("invalid id");
             }
 
-            deviceId = deviceId.ToLower();
+            //deviceId = deviceId.ToLower();
             windowSize = windowSize.ToLower();
             var docDbClient = new DocumentClient(new Uri(docDbUri), docDbKey);
             var results = await QueryAsync(docDbClient.CreateDocumentQuery<DeviceStats>(DeviceStatsDocumentCollectionUri)
@@ -115,7 +115,7 @@ namespace AdminApi.Service
                 throw new InvalidOperationException("invalid id");
             }
 
-            deviceId = deviceId.ToLower();
+            //deviceId = deviceId.ToLower();
             var docDbClient = new DocumentClient(new Uri(docDbUri), docDbKey);
             var results = await QueryAsync(docDbClient.CreateDocumentQuery<DeviceAlert>(AlertDocumentCollectionUri)
                 .Where(item => item.deviceid == deviceId && item.acknowledged == "false").OrderByDescending(item => item.time).Take(limit.Value)).ConfigureAwait(false);
@@ -162,7 +162,7 @@ namespace AdminApi.Service
                 throw new InvalidOperationException("invalid id");
             }
 
-            deviceId = deviceId.ToLower();
+            //deviceId = deviceId.ToLower();
             var docDbClient = new DocumentClient(new Uri(docDbUri), docDbKey);
             var results = await QueryAsync(docDbClient.CreateDocumentQuery<DeviceAlert>(AlertDocumentCollectionUri)
                 .Where(item => item.deviceid == deviceId)).ConfigureAwait(false);
