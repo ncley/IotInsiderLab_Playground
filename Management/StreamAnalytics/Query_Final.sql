@@ -1,4 +1,11 @@
-WITH minuteswindow AS
+WITH raw AS
+(
+    SELECT 
+       *
+     FROM devicemessages Timestamp by EventEnqueuedUtcTime
+   
+),
+minuteswindow AS
 (
     SELECT 
         IoTHub.ConnectionDeviceId as deviceId,
@@ -212,3 +219,16 @@ Select
 FROM minutesWindow mw
     INNER JOIN minutestotals mt ON mw.Time = mt.windowEndTime AND DATEDIFF(ss, mw, mt)=0
 WHERE mw.messageCount > (mt.median * 4)
+
+Select 
+h.deviceId
+, h.type
+, h.readings.CPU
+, h.readings.RAM
+, h.readings.Bandwidth
+, h.readings.DataSent
+, h.readings.DataRecieved
+, h.EventEnqueuedUtcTime
+ INTO coldrawdata 
+ FROM raw h 
+ WHERE h.type <> ''
