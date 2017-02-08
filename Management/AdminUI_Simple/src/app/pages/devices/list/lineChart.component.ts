@@ -72,7 +72,7 @@ export class LineChart implements OnInit,AfterViewInit{
     var me = this;
     me._deviceService.getLatestAggregateMessageStats('minute').subscribe(data => {
        me.series = data.map(function(item) {
-          return {date: new Date(item.windowendtime),value:item.min,value0:item.median};
+          return {date: new Date(item.windowendtime),value:item.median,value0:item.max};
       });
     },
     error => {
